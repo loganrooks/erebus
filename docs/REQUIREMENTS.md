@@ -322,6 +322,19 @@ configured `cache/` and `lab/` directories (except for the explicit
 `--out` argument). Path-traversal inputs (`../../etc/passwd`) MUST
 be rejected at the validation layer.
 
+### REQ-SEC-006 [MUST, phase:1] — Fixture provenance
+
+Test fixtures under `tests/fixtures/` MUST be synthetic — generated
+by the committed script `scripts/generate_fixtures.py`, which uses
+ffmpeg filters (`testsrc`, `sine`, `color`) and predictable
+parameters. No fixture MAY be sourced from copyrighted material,
+scraped from external sources, or recorded from a human user.
+
+Lab clips under `lab/clips/` are NOT fixtures and are NOT
+distributed with the repo. `lab/clips/` is gitignored. A clip MAY
+be committed only if its provenance is recorded in an ADR
+(public-domain, CC-licensed with attribution, or original work).
+
 ### REQ-SEC-005 [SHOULD, phase:1] — yt-dlp version pinning
 
 The minimum supported `yt-dlp` version SHALL be declared in

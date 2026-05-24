@@ -179,7 +179,12 @@ movement.
 
 ## 6. Fixtures and reference data
 
-Small reference fixtures live in `tests/fixtures/`:
+Small reference fixtures live in `tests/fixtures/` and MUST be
+synthetic per REQ-SEC-006. The committed
+`scripts/generate_fixtures.py` regenerates them from ffmpeg
+filters, so a fresh check-out can rebuild them locally without
+copying binary blobs into git. The fixtures themselves are
+committed (for CI speed) but are reproducible.
 
 - `tests/fixtures/video_3s.mp4` — a 3-second 1920×1080 mp4 with
   predictable content (color bars, a sweep tone, a moving square).

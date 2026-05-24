@@ -103,10 +103,15 @@ Thumbs.db
 
 # Project: never commit
 cache/
-lab/outputs/
 *.env
 .env*
 !.env.example
+
+# Lab: clips are not distributed; outputs are scratch
+lab/clips/
+lab/outputs/
+!lab/clips/.gitkeep
+!lab/outputs/.gitkeep
 
 # Tests
 .coverage
@@ -312,6 +317,10 @@ touch erebus/visualizers/avectorscope.py
 mkdir -p tests/unit tests/integration tests/e2e tests/meta tests/fixtures
 mkdir -p presets lab/clips
 mkdir -p .github/workflows
+
+# Fixture-generator script (stub at Goal 0; implementation in Phase 1)
+mkdir -p scripts
+touch scripts/generate_fixtures.py
 ```
 
 Each `.py` file gets a minimal stub: a module docstring and any
