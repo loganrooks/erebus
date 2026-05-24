@@ -305,7 +305,9 @@ branch protection, or commits begin.
 
 - Finding 1:
 - Finding 2:
-- Finding 3:
+- Finding 3: resolved per 0002 §Finding-3; rewrote REQUIREMENTS.md intro
+  to bidirectional many-to-many coverage; added clarifying paragraph in
+  TEST_SPEC.md permitting multi-REQ citations on a single anchor.
 - Finding 4:
 - Finding 5:
 - Finding 6:

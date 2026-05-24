@@ -3,8 +3,11 @@
 Formal requirements for `erebus`. Each requirement has a stable
 identifier (`REQ-<DOMAIN>-<NUMBER>`) used by test anchors in
 `TEST_SPEC.md` and by commit messages. The cross-reference between
-REQ-IDs and test anchors is 1:1 and enforced by the docs-consistency
-check in CI.
+REQ-IDs and test anchors is bidirectional: every MUST requirement
+SHALL be referenced by at least one anchor in `TEST_SPEC.md`, and
+every anchor SHALL cite at least one valid REQ-ID. SHOULD and MAY
+requirements MAY be anchored but are not required to be. This
+coverage contract is enforced by the docs-consistency check in CI.
 
 Categories:
 - **MUST** — hard requirement; violation means the goal is not done.

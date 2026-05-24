@@ -18,6 +18,10 @@ test_<name> — REQ-<ID>[, REQ-<ID>...]
                         trivial implementation>
 ```
 
+An anchor MAY cite multiple REQ-IDs when a single observable behaviour
+satisfies more than one requirement (typical for integration anchors).
+The coverage check counts the anchor against each cited REQ.
+
 The docs-consistency meta-test (`tests/meta/test_anchors.py`) verifies
 that every anchor here has a matching test function and every test
 function tagged `@pytest.mark.anchor("...")` has a matching anchor here.
