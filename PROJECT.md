@@ -72,6 +72,7 @@ REQ-ARCH-005 for the formal contract.
 | File                       | Purpose                                                              | Audience          |
 | -------------------------- | -------------------------------------------------------------------- | ----------------- |
 | `README.md`                | Public-facing intro, install, quick example, disclaimers             | Visitors, users   |
+| `LICENSE`                  | MIT license text                                                     | Visitors          |
 | `PROJECT.md` (this file)   | Vision, phasing, architecture; entry point for new contributors      | Humans + agents   |
 | `AGENTS.md`                | Cross-vendor agent instructions (Codex, Cursor, Copilot, Gemini)     | AI coding agents  |
 | `CLAUDE.md`                | Thin Claude-Code-specific layer; imports AGENTS.md                   | Claude Code       |

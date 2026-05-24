@@ -353,7 +353,9 @@ branch protection, or commits begin.
 - Finding 11:
 - Finding 12:
 - Finding 13:
-- Finding 14:
+- Finding 14: resolved per 0002 §Finding-14; added LICENSE row to
+  PROJECT.md §3 document map. Setup order in REPO_SETUP.md already
+  creates LICENSE (step 3.2) before README (step 3.8).
 - Finding 15:
 - Finding 16:
 - Finding 17:
