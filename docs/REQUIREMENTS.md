@@ -386,6 +386,20 @@ numbered sequentially: `NNNN-short-title.md`. Use the template in
 
 ---
 
+## Integration (REQ-INTEG)
+
+### REQ-INTEG-001 [MUST, phase:1] — End-to-end Phase-1 verification
+
+The full `erebus render` pipeline, exercised against synthetic test
+playlists, MUST produce an output that simultaneously satisfies the
+Phase-1 verification criteria in `PROJECT.md` §4 and the acceptance
+points 1-4 in the Phase-1 goal command. This REQ is the integration
+umbrella; the individual stage REQs cited by
+`test_phase1_integration` are tested separately by their own
+anchors.
+
+---
+
 ## Out-of-scope for Phase 1
 
 Explicitly excluded from Phase 1 (and from any goal that doesn't

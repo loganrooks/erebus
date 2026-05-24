@@ -310,7 +310,10 @@ branch protection, or commits begin.
   test_adr_files_match_template (REQ-DOC-003). The seven missing
   SHOULDs remain unanchored per the reframed coverage model
   (Finding 3/Finding 5).
-- Finding 2:
+- Finding 2: resolved per 0002 §Finding-2; added new
+  REQ-INTEG-001 to REQUIREMENTS.md as the integration umbrella and
+  cited it on test_phase1_integration. The cross-references to
+  individual stage REQs remain as informational notes.
 - Finding 3: resolved per 0002 §Finding-3; rewrote REQUIREMENTS.md intro
   to bidirectional many-to-many coverage; added clarifying paragraph in
   TEST_SPEC.md permitting multi-REQ citations on a single anchor.

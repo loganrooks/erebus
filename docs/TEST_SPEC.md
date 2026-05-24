@@ -574,7 +574,12 @@ function tagged `@pytest.mark.anchor("...")` has a matching anchor here.
 These tests provide the final verification surface for Phase 1.
 They run on CI in a dedicated job with `--run-e2e`.
 
-### test_phase1_integration — Phase-1 verification surface
+### test_phase1_integration — REQ-INTEG-001
+
+(Cross-references: REQ-CLI-001, REQ-CLI-002, REQ-CONCAT-002,
+REQ-GRADE-003, REQ-VIZ-001, REQ-CAPTION-002, REQ-MIX-004,
+REQ-ENCODE-001, REQ-ENCODE-002 — all verified individually by their
+own anchors; this anchor verifies the composition.)
 
 - **Where:** `tests/e2e/test_phase1.py`
 - **Inputs:** Local fake playlists (no network).
