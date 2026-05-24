@@ -310,7 +310,10 @@ branch protection, or commits begin.
   TEST_SPEC.md permitting multi-REQ citations on a single anchor.
 - Finding 4:
 - Finding 5:
-- Finding 6:
+- Finding 6: resolved per 0002 §Finding-6; rewrote AGENTS.md
+  non-negotiable rule #1 to point ffmpeg/ffprobe at
+  `erebus/ffmpeg/builder.py` and yt-dlp at `erebus/stages/ingest.py`,
+  removing the never-planned `erebus/ingest/` package reference.
 - Finding 7: resolved per 0002 §Finding-7; PROJECT.md §11 reworded to
   "minimum versions in pyproject.toml + exact versions in uv.lock";
   REQ-SEC-005 rewritten with the same model and a pre-flight check

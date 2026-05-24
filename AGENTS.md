@@ -31,10 +31,12 @@ Stack:
 These rules are *hard constraints*. Violating them is grounds for the
 human to revert the agent's work and restart with a narrower goal.
 
-1. **No raw subprocess strings.** Every `ffmpeg`/`yt-dlp`/`ffprobe`
-   call goes through the wrappers in `erebus/ffmpeg/` and
-   `erebus/ingest/`. Never `subprocess.run(f"ffmpeg ... {user_input}
-   ...")`. See REQUIREMENTS.md REQ-SEC-001 / REQ-SEC-002.
+1. **No raw subprocess strings.** Every `ffmpeg`/`ffprobe` call goes
+   through `erebus/ffmpeg/builder.py`. Every `yt-dlp` invocation goes
+   through the typed wrapper in `erebus/stages/ingest.py`; no other
+   module may call `yt-dlp` directly. Never
+   `subprocess.run(f"ffmpeg ... {user_input} ...")`. See
+   REQUIREMENTS.md REQ-SEC-001 / REQ-SEC-002.
 
 2. **No `--no-verify` on commits.** Pre-commit hooks exist for a
    reason. If they fail, fix the code, not the hook invocation. AI
