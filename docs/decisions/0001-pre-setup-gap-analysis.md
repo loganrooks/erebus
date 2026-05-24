@@ -345,7 +345,11 @@ branch protection, or commits begin.
   .pre-commit-config.yaml; updated REPO_SETUP.md §1 pre-flight to
   note gitleaks is pre-commit-managed.
 - Finding 9:
-- Finding 10:
+- Finding 10: resolved per 0002 §Finding-10; documented the
+  dual-marker convention (meta tests carry both phase1 and meta) in
+  REPO_SETUP.md pyproject markers; updated pre-commit pytest entry,
+  CI test-unit-meta job, and WORKFLOW.md hook description to use
+  `-m "phase1 or meta"`.
 - Finding 11:
 - Finding 12:
 - Finding 13:

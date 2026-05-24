@@ -180,7 +180,7 @@ markers = [
   "phase3: Phase-3 (deferred)",
   "phase4: Phase-4 (deferred)",
   "anchor(name): name of the TEST_SPEC.md anchor this test satisfies",
-  "meta: docs-consistency and other meta tests",
+  "meta: docs-consistency and other meta tests; meta tests should also carry the relevant phase marker",
 ]
 addopts = "-ra --strict-markers"
 ```
@@ -232,8 +232,8 @@ repos:
   - repo: local
     hooks:
       - id: pytest-fast
-        name: pytest (unit + meta only)
-        entry: uv run pytest tests/unit tests/meta -m phase1 --quiet --no-header
+        name: pytest (unit + meta, phase1 + meta scope)
+        entry: uv run pytest tests/unit tests/meta -m "phase1 or meta" --quiet --no-header
         language: system
         pass_filenames: false
         stages: [pre-commit]
@@ -464,7 +464,7 @@ jobs:
             brew install ffmpeg
           fi
           uv pip install yt-dlp
-      - run: uv run pytest tests/unit tests/meta -m phase1
+      - run: uv run pytest tests/unit tests/meta -m "phase1 or meta"
 
   test-integration:
     runs-on: ubuntu-latest

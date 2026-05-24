@@ -77,7 +77,7 @@ local commit:
 - `ruff check --fix` — lint with auto-fix
 - `ruff format` — formatting
 - `mypy .` — type checking
-- `pytest tests/unit tests/meta -m phase1 --quiet --no-header` —
+- `pytest tests/unit tests/meta -m "phase1 or meta" --quiet --no-header` —
   fast tests only (unit + meta)
 - Standard pre-commit hooks: trailing whitespace,
   end-of-file fixer, large file check, YAML validity, merge conflict
