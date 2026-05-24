@@ -322,7 +322,13 @@ branch protection, or commits begin.
   the job names defined in REPO_SETUP.md's CI workflow
   (lint-and-type, test-unit-meta {ubuntu,macos}, test-integration,
   gitleaks, docs-consistency).
-- Finding 5:
+- Finding 5: resolved per 0002 §Finding-5; added REPO_SETUP.md
+  §3.6.1 "Bootstrap test set" (conftest, two meta tests, smoke
+  unit test) so pytest collects something at Goal-0 green CI;
+  reframed REQ-DOC-001 to require MUST coverage + valid-citation
+  invariants without forcing every anchor to have a test function
+  yet; added a "planned vs. implemented" paragraph to TESTING.md §3
+  documenting the anchor lifecycle.
 - Finding 6: resolved per 0002 §Finding-6; rewrote AGENTS.md
   non-negotiable rule #1 to point ffmpeg/ffprobe at
   `erebus/ffmpeg/builder.py` and yt-dlp at `erebus/stages/ingest.py`,

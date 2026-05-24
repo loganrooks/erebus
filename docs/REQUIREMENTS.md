@@ -365,10 +365,18 @@ hung.
 
 ### REQ-DOC-001 [MUST, phase:1] — Docs-consistency CI check
 
-A CI job MUST verify that every REQ-ID in this document is
-referenced by at least one test anchor in `TEST_SPEC.md`, and that
-every test anchor's REQ-ID exists in this document. Violations fail
-CI.
+A CI job MUST verify that:
+- Every MUST requirement in this document is referenced by at least
+  one anchor entry in `TEST_SPEC.md`.
+- Every anchor entry in `TEST_SPEC.md` cites at least one REQ-ID,
+  and every cited REQ-ID exists in this document.
+
+The reverse direction — every `TEST_SPEC.md` entry has a
+corresponding test function in `tests/` — is NOT enforced per-PR.
+Pending anchors are normal during a phase. The phase-completion
+review (per `docs/WORKFLOW.md` §5) verifies that every anchor for
+the closing phase has been implemented before the phase tag is
+created.
 
 ### REQ-DOC-002 [MUST, phase:1] — Public README
 

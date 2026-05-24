@@ -100,6 +100,20 @@ Avoid:
 - `test_ingest_with_url_returns_files_and_manifest_and_handles_errors`
   (overloaded; split into separate anchors)
 
+### Anchor lifecycle: planned vs. implemented
+
+Anchors listed in `TEST_SPEC.md` may exist in either of two states:
+*planned* (in the spec but no corresponding test function yet) or
+*implemented* (test function exists and is tagged
+`@pytest.mark.anchor("<name>")`). Anchors transition from planned
+to implemented in the RED step of their feature PR. The
+docs-consistency meta-test verifies properties of *all* anchors
+(every anchor cites a valid REQ-ID; every MUST REQ is cited), but
+does not require an implementing test function to exist yet —
+pending anchors are normal during a phase. The phase-completion
+review catches anchors that were planned-but-never-implemented
+before the phase tag is created.
+
 ## 4. Test taxonomy
 
 Three layers, plus a meta-test layer for docs consistency:

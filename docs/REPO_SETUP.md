@@ -297,6 +297,116 @@ NotImplementedError placeholder needed to satisfy mypy strict mode.
 
 Commit: `chore: add source tree skeleton`.
 
+### Step 3.6.1 — Bootstrap test set
+
+The empty test directories from §3.6 would cause `pytest` to exit
+non-zero (no tests collected). Add a minimal bootstrap test set
+that passes immediately:
+
+`tests/conftest.py`:
+
+```python
+"""Pytest configuration for the erebus test suite."""
+
+
+def pytest_configure(config):
+    """Reserved for future runtime config.
+
+    Markers are declared in pyproject.toml [tool.pytest.ini_options];
+    this hook exists so future shared configuration has a home.
+    """
+```
+
+`tests/meta/test_anchors.py`:
+
+```python
+"""Docs-consistency: REQ <-> anchor coverage check."""
+import re
+from pathlib import Path
+
+import pytest
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+REQ_FILE = REPO_ROOT / "docs" / "REQUIREMENTS.md"
+SPEC_FILE = REPO_ROOT / "docs" / "TEST_SPEC.md"
+
+REQ_PATTERN = re.compile(r"^### (REQ-[A-Z]+-\d{3})\s*\[", re.MULTILINE)
+MUST_PATTERN = re.compile(r"^### (REQ-[A-Z]+-\d{3})\s*\[MUST", re.MULTILINE)
+ANCHOR_REQ_REF = re.compile(
+    r"### test_\w+\s*—\s*((?:REQ-[A-Z]+-\d{3}[,\s]*)+)"
+)
+
+
+def _read(p: Path) -> str:
+    return p.read_text(encoding="utf-8")
+
+
+@pytest.mark.meta
+@pytest.mark.phase1
+def test_every_must_req_has_anchor_citation() -> None:
+    """Every MUST requirement must be cited by at least one anchor."""
+    req_text = _read(REQ_FILE)
+    spec_text = _read(SPEC_FILE)
+    musts = set(MUST_PATTERN.findall(req_text))
+    cited: set[str] = set()
+    for match in ANCHOR_REQ_REF.finditer(spec_text):
+        cited.update(re.findall(r"REQ-[A-Z]+-\d{3}", match.group(1)))
+    missing = musts - cited
+    assert not missing, f"MUST REQs without anchor: {sorted(missing)}"
+
+
+@pytest.mark.meta
+@pytest.mark.phase1
+def test_every_anchor_cites_valid_req() -> None:
+    """Every anchor must cite at least one REQ-ID that exists."""
+    req_text = _read(REQ_FILE)
+    spec_text = _read(SPEC_FILE)
+    valid_reqs = set(REQ_PATTERN.findall(req_text))
+    bad: list[str] = []
+    for match in ANCHOR_REQ_REF.finditer(spec_text):
+        cited = re.findall(r"REQ-[A-Z]+-\d{3}", match.group(1))
+        if not cited:
+            bad.append(f"empty citation near: {match.group(0)[:60]}")
+            continue
+        for req in cited:
+            if req not in valid_reqs:
+                bad.append(f"unknown REQ cited: {req}")
+    assert not bad, "\n".join(bad)
+```
+
+`tests/meta/test_bootstrap.py`:
+
+```python
+"""Smoke test that erebus is importable at bootstrap."""
+import pytest
+
+
+@pytest.mark.meta
+@pytest.mark.phase1
+def test_erebus_importable() -> None:
+    import erebus  # noqa: F401
+```
+
+`tests/unit/test_smoke.py`:
+
+```python
+"""At least one unit test so pytest collects something at Goal-0."""
+import pytest
+
+
+@pytest.mark.phase1
+def test_smoke() -> None:
+    assert True
+```
+
+Phase-1 stage anchors (per `docs/TEST_SPEC.md`) are NOT created at
+Goal 0. They are added during Phase 1 in the RED step of each
+stage's red-green-refactor PR cycle. The meta-tests above only
+check that *existing* anchors are properly cross-referenced;
+pending anchors are normal until their feature PR lands.
+
+Commit: `chore: add bootstrap test set`.
+
 ### Step 3.7 — GitHub Actions workflows
 
 `.github/workflows/ci.yml`:
