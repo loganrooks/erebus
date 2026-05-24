@@ -222,9 +222,17 @@ gh pr diff "$PR_NUMBER" | claude -p \
   --max-turns 8 \
   > "docs/decisions/reviews/${PR_NUMBER}-${STAGE_NAME}.json"
 
-# Render the report into markdown for the PR comment.
-uv run python scripts/render_review.py \
-  "docs/decisions/reviews/${PR_NUMBER}-${STAGE_NAME}.json" \
+# Extract a markdown summary for the PR comment. Requires the
+# review-prompt (docs/review-prompts/stage-review.md) to instruct
+# the reviewer to emit JSON with .summary, .must_fix[], and
+# .should_fix[] keys.
+jq -r '
+  "## Review summary\n\n" + .summary + "\n\n" +
+  "**MUST-fix (\(.must_fix | length)):**\n" +
+  ((.must_fix // []) | map("- " + .description) | join("\n")) +
+  "\n\n**SHOULD-fix (\(.should_fix | length)):**\n" +
+  ((.should_fix // []) | map("- " + .description) | join("\n"))
+' "docs/decisions/reviews/${PR_NUMBER}-${STAGE_NAME}.json" \
   > "docs/decisions/reviews/${PR_NUMBER}-${STAGE_NAME}.md"
 
 # Post the review as a PR comment.

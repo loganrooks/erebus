@@ -351,7 +351,13 @@ branch protection, or commits begin.
   CI test-unit-meta job, and WORKFLOW.md hook description to use
   `-m "phase1 or meta"`.
 - Finding 11:
-- Finding 12:
+- Finding 12: resolved per 0002 §Finding-12; replaced the
+  scripts/render_review.py invocation in WORKFLOW.md §5 with an
+  inline jq pipeline. Soft follow-up: docs/review-prompts/stage-review.md
+  needs to instruct the reviewer to emit JSON with .summary,
+  .must_fix[].description, and .should_fix[].description keys for
+  the jq filter to work; addressing that in the review-prompts pass
+  is a separate non-blocking change.
 - Finding 13:
 - Finding 14: resolved per 0002 §Finding-14; added LICENSE row to
   PROJECT.md §3 document map. Setup order in REPO_SETUP.md already
