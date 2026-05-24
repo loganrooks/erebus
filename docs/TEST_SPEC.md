@@ -298,6 +298,22 @@ function tagged `@pytest.mark.anchor("...")` has a matching anchor here.
 - **Anti-tautology:** Hard-coding the values to wrong defaults
   fails.
 
+### test_caption_track_start_times_from_manifest — REQ-CAPTION-001
+
+- **Where:** `tests/unit/test_caption.py`
+- **Inputs:** A 3-track manifest with known per-track durations.
+- **Behaviour:** The caption stage derives start times exclusively
+  from manifest fields; it does NOT call ffprobe or yt-dlp to
+  re-derive them.
+- **Assertions:**
+  - The generated enable expression's interval boundaries equal the
+    cumulative sums of manifest track durations exactly (no rounding
+    drift).
+  - With ffprobe monkeypatched to raise, the caption stage still
+    produces correct output (proves no probe path is taken).
+- **Anti-tautology:** A naïve implementation that re-probes input
+  files would fail when ffprobe is mocked to raise.
+
 ---
 
 ## Mix anchors
@@ -328,6 +344,35 @@ function tagged `@pytest.mark.anchor("...")` has a matching anchor here.
     music-only stream in the output exceeds the video-audio-only
     stream by ≥ 8 dB.
 - **Anti-tautology:** Wrong volume duck direction fails.
+
+### test_mix_uses_two_stream_amix — REQ-MIX-001
+
+- **Where:** `tests/integration/test_mix.py`
+- **Inputs:** A test video clip + a test music clip.
+- **Behaviour:** The mix stage's ffmpeg invocation uses
+  `amix=inputs=2:...`, not concat or a different mixing approach.
+- **Assertions:**
+  - The constructed filter graph contains exactly one `amix` node
+    with `inputs=2`.
+  - Replacing one input with a silent track produces output where
+    that stream's contribution is silent (proving the stream entered
+    the mix).
+- **Anti-tautology:** A single-stream pass-through would have no
+  amix node; a three-stream amix would have wrong inputs count.
+
+### test_mix_video_audio_volume_attenuated — REQ-MIX-003
+
+- **Where:** `tests/integration/test_mix.py`
+- **Inputs:** A test video with known RMS level + a silent music
+  track.
+- **Behaviour:** After mixing, the video audio's RMS in the output
+  is attenuated by approximately the preset's `volume_db`.
+- **Assertions:**
+  - Measured RMS_output / RMS_video_input is within 1 dB of
+    `10 ** (volume_db / 20)`.
+- **Anti-tautology:** No attenuation, or wrong-direction
+  attenuation, both fail. The tolerance is tight enough to detect
+  off-by-one in the filter chain.
 
 ---
 
@@ -504,6 +549,23 @@ function tagged `@pytest.mark.anchor("...")` has a matching anchor here.
   - The CLI accepts each invocation under `--help`.
 - **Anti-tautology:** A README example that drifts from the CLI
   fails.
+
+### test_adr_files_match_template — REQ-DOC-003
+
+- **Where:** `tests/meta/test_adrs.py`
+- **Inputs:** Every file under `docs/decisions/` matching
+  `NNNN-*.md`.
+- **Behaviour:** Each ADR contains the required sections from
+  `TEMPLATE.md`.
+- **Assertions:**
+  - Each ADR has a level-1 heading matching the pattern
+    `# NNNN — <title>`.
+  - Each ADR contains a `Status:`, `Date:`, `Author(s):` line.
+  - Each ADR has level-2 sections "Context", "Decision",
+    "Consequences".
+- **Anti-tautology:** A free-form markdown file lacking these
+  sections would fail; an ADR genuinely matching the template
+  passes.
 
 ---
 

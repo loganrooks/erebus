@@ -303,7 +303,13 @@ branch protection, or commits begin.
 
 ## Resolution log
 
-- Finding 1:
+- Finding 1: resolved per 0002 §Finding-1; added four anchors to
+  TEST_SPEC.md — test_caption_track_start_times_from_manifest
+  (REQ-CAPTION-001), test_mix_uses_two_stream_amix (REQ-MIX-001),
+  test_mix_video_audio_volume_attenuated (REQ-MIX-003), and
+  test_adr_files_match_template (REQ-DOC-003). The seven missing
+  SHOULDs remain unanchored per the reframed coverage model
+  (Finding 3/Finding 5).
 - Finding 2:
 - Finding 3: resolved per 0002 §Finding-3; rewrote REQUIREMENTS.md intro
   to bidirectional many-to-many coverage; added clarifying paragraph in
