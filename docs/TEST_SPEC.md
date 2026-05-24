@@ -475,13 +475,16 @@ function tagged `@pytest.mark.anchor("...")` has a matching anchor here.
 
 ### test_no_secrets_in_repo — REQ-SEC-003
 
-- **Where:** `tests/meta/test_no_secrets.py`
+- **Where:** `tests/meta/test_no_secrets.py` (shells out to
+  pre-commit; treat as integration-grade though fast).
 - **Inputs:** The repo tree.
-- **Behaviour:** Common secret patterns (`AKIA[0-9A-Z]{16}`, `gh[ps]_[A-Za-z0-9]{36}`,
-  `sk-[A-Za-z0-9]{20,}`, etc.) appear in no tracked file.
+- **Behaviour:** Common secret patterns (`AKIA[0-9A-Z]{16}`,
+  `gh[ps]_[A-Za-z0-9]{36}`, `sk-[A-Za-z0-9]{20,}`, etc.) appear in
+  no tracked file. Gitleaks is invoked via the pre-commit framework
+  so no separate `gitleaks` binary on PATH is required.
 - **Assertions:**
-  - `gitleaks detect --no-banner --no-git --redact --report-format
-    json` returns zero findings.
+  - `uv run pre-commit run --hook-stage manual gitleaks --all-files`
+    exits 0.
 - **Anti-tautology:** Real leaks would be caught by the canonical
   scanner.
 

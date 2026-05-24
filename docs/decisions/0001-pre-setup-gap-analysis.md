@@ -338,7 +338,12 @@ branch protection, or commits begin.
   REQ-SEC-005 rewritten with the same model and a pre-flight check
   obligation; REPO_SETUP.md §1 gained a yt-dlp version-floor assertion
   and §3.3 gained a uv.lock commit note.
-- Finding 8:
+- Finding 8: resolved per 0002 §Finding-8; switched the meta-test
+  and CI job to invoke gitleaks via `pre-commit run --hook-stage
+  manual gitleaks`, eliminating the host-PATH binary dependency;
+  added `stages: [pre-commit, manual]` to the gitleaks hook in
+  .pre-commit-config.yaml; updated REPO_SETUP.md §1 pre-flight to
+  note gitleaks is pre-commit-managed.
 - Finding 9:
 - Finding 10:
 - Finding 11:

@@ -32,6 +32,10 @@ gh auth status         # should show authenticated as loganrooks
 If any of these fail, stop and surface the missing dependency. Don't
 silently install system-wide tools as part of the goal.
 
+`gitleaks` is managed by `pre-commit` via the hook in
+`.pre-commit-config.yaml`; no separate install needed on the host
+or in CI.
+
 ## 2. Repository creation
 
 ```bash
@@ -223,6 +227,7 @@ repos:
     rev: v8.18.4
     hooks:
       - id: gitleaks
+        stages: [pre-commit, manual]
 
   - repo: local
     hooks:
@@ -494,9 +499,10 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: gitleaks/gitleaks-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: astral-sh/setup-uv@v3
+      - run: uv python install 3.11
+      - run: uv sync --extra dev
+      - run: uv run pre-commit run --hook-stage manual gitleaks --all-files
 
   docs-consistency:
     runs-on: ubuntu-latest
