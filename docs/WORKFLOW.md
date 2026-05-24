@@ -473,10 +473,20 @@ been scraped.
    ```
 3. Rewrite history if the secret is in older commits:
    ```bash
-   # Use git-filter-repo (not the older filter-branch)
+   # Install git-filter-repo (one-time, emergency recovery tool).
+   # macOS:
+   brew install git-filter-repo
+   # Linux:
    pip install --user git-filter-repo
+   # Or use the standalone script from
+   # https://github.com/newren/git-filter-repo
+
    git filter-repo --replace-text <(echo "OLDSECRET==>REDACTED")
    ```
+
+   `git-filter-repo` is exempt from Goal-0's tool allow-set as a
+   recovery-only dependency. It is NOT used during normal
+   development.
 4. Force-push and notify all collaborators to rebase.
 5. Open an ADR documenting the incident:
    `docs/decisions/NNNN-secret-leak-<short-date>.md`.

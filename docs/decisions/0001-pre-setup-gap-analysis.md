@@ -370,7 +370,11 @@ branch protection, or commits begin.
   .must_fix[].description, and .should_fix[].description keys for
   the jq filter to work; addressing that in the review-prompts pass
   is a separate non-blocking change.
-- Finding 13:
+- Finding 13: resolved per 0002 §Finding-13; added platform install
+  options (brew on macOS, pip --user on Linux, standalone script) for
+  git-filter-repo to WORKFLOW.md §8.3 and an explicit exemption note
+  identifying it as a recovery-only dependency outside Goal-0's
+  tool allow-set.
 - Finding 14: resolved per 0002 §Finding-14; added LICENSE row to
   PROJECT.md §3 document map. Setup order in REPO_SETUP.md already
   creates LICENSE (step 3.2) before README (step 3.8).
