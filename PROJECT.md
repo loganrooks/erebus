@@ -406,7 +406,8 @@ Implementation order in Phase 4: A → B → C.
 
 External binaries: `ffmpeg` ≥ 6, `yt-dlp`, `ffprobe`.
 
-Python (pinned in `pyproject.toml`):
+Python (declared with minimum versions in `pyproject.toml`; exact
+resolved versions locked in `uv.lock` and committed):
 `typer`, `pydantic` v2, `rich`, `tomli`/`tomllib`.
 
 Out of scope for Phase 1: any ML dep (`librosa`, `torch`, `numpy`

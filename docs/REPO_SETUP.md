@@ -20,6 +20,11 @@ pre-commit --version   # pre-commit framework
 ffmpeg -version | head -1  # ≥ 6.0
 yt-dlp --version
 
+# Verify yt-dlp meets the declared minimum (REQ-SEC-005).
+# Adjust the version threshold below to whatever pinned-minimum is
+# recorded in pyproject.toml at bootstrap time (placeholder: 2024.07).
+yt-dlp --version | awk -F. '{ if ($1 < 2024 || ($1 == 2024 && $2 < 7)) exit 1 }'
+
 # GitHub auth
 gh auth status         # should show authenticated as loganrooks
 ```
@@ -175,6 +180,10 @@ markers = [
 ]
 addopts = "-ra --strict-markers"
 ```
+
+Exact versions for both runtime and dev dependencies are recorded in
+`uv.lock`, which `uv sync` writes on first install. Commit `uv.lock`
+on the same step as `pyproject.toml`.
 
 Commit: `chore: add pyproject.toml with Python 3.11 + uv config`.
 

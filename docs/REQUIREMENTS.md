@@ -324,9 +324,13 @@ be rejected at the validation layer.
 
 ### REQ-SEC-005 [SHOULD, phase:1] — yt-dlp version pinning
 
-The required `yt-dlp` version SHALL be pinned in `pyproject.toml`.
-A user-supplied environment variable `EREBUS_YT_DLP_BIN` MAY
-override the binary path; if set, the stage SHALL log the override.
+The minimum supported `yt-dlp` version SHALL be declared in
+`pyproject.toml`. The exact resolved version SHALL be locked in
+`uv.lock` (committed). The host pre-flight check in
+`docs/REPO_SETUP.md` §1 SHALL verify that the installed `yt-dlp`
+binary meets the declared minimum. A user-supplied environment
+variable `EREBUS_YT_DLP_BIN` MAY override the binary path; if set,
+the stage SHALL log the override.
 
 ---
 

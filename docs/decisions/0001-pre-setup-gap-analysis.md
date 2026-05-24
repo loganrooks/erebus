@@ -311,7 +311,11 @@ branch protection, or commits begin.
 - Finding 4:
 - Finding 5:
 - Finding 6:
-- Finding 7:
+- Finding 7: resolved per 0002 §Finding-7; PROJECT.md §11 reworded to
+  "minimum versions in pyproject.toml + exact versions in uv.lock";
+  REQ-SEC-005 rewritten with the same model and a pre-flight check
+  obligation; REPO_SETUP.md §1 gained a yt-dlp version-floor assertion
+  and §3.3 gained a uv.lock commit note.
 - Finding 8:
 - Finding 9:
 - Finding 10:
