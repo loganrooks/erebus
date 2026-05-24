@@ -38,22 +38,39 @@ or in CI.
 
 ## 2. Repository creation
 
+The bootstrap directory `/Users/rookslog/Development/erebus` already
+holds the docs. Initialize it as a git repo in place, commit the
+bootstrap, then create the GitHub repo from that directory using
+`gh repo create --source=.`. This avoids the dual-checkout conflict
+that a `gh repo clone` into an already-populated directory would
+cause.
+
 ```bash
-# Create a public repo named `erebus` under loganrooks
+cd /Users/rookslog/Development/erebus     # the existing directory
+
+# Initialize as a git repo (idempotent if already done)
+git init -b main
+
+# Stage and commit the bootstrap
+git add .
+git status                                # sanity-check the staged set
+git commit -m "chore: initial bootstrap (docs + skeleton)"
+
+# Create the GitHub repo from this directory, set origin, push.
+# Drop --license=mit here: the local LICENSE generated in step 3.2
+# is the canonical one; passing --license=mit would conflict with
+# the existing file when --source is a non-empty repo.
 gh repo create loganrooks/erebus \
   --public \
   --description "Cyberpunk video-mix toolkit. Concat YouTube playlists, overlay music, apply cyberpsycho visual presets." \
-  --add-readme=false \
-  --license=mit
-
-# Clone it locally
-gh repo clone loganrooks/erebus
-cd erebus
+  --source=. \
+  --remote=origin \
+  --push
 ```
 
-The `--license=mit` flag drops in an MIT LICENSE file. If a different
-license is preferred (Apache-2.0 is the main alternative for projects
-that may attract contributors), swap before the first push.
+If a different license is preferred (Apache-2.0 is the main
+alternative for projects that may attract contributors), swap the
+LICENSE file produced by step 3.2 before the bootstrap commit.
 
 ## 3. Bootstrap files
 
