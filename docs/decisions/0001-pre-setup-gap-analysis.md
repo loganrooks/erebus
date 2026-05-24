@@ -354,7 +354,15 @@ branch protection, or commits begin.
   REPO_SETUP.md pyproject markers; updated pre-commit pytest entry,
   CI test-unit-meta job, and WORKFLOW.md hook description to use
   `-m "phase1 or meta"`.
-- Finding 11:
+- Finding 11: resolved per 0002 §Finding-11; added Enforcement +
+  Fallback paths paragraphs to WORKFLOW.md §5 (Haiku fallback for
+  rate-limits, NOTES.md skip + 24h retro for outage); added a
+  `review-artifact-exists` CI job to REPO_SETUP.md §3.7 that checks
+  for a non-empty `docs/decisions/reviews/<PR>-*.json`; added the
+  job to the required-checks list in WORKFLOW.md §3 and the branch
+  protection JSON in REPO_SETUP.md §4; updated PR template
+  Verification block with the artifact bullet. Content gating
+  (auto-block on MUST-fix) is deferred to Phase 2.
 - Finding 12: resolved per 0002 §Finding-12; replaced the
   scripts/render_review.py invocation in WORKFLOW.md §5 with an
   inline jq pipeline. Soft follow-up: docs/review-prompts/stage-review.md

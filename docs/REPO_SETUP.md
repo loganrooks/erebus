@@ -529,6 +529,22 @@ jobs:
       - run: uv python install 3.11
       - run: uv sync --extra dev
       - run: uv run pytest tests/meta -m meta
+
+  review-artifact-exists:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check for review artifact
+        run: |
+          PR="${{ github.event.pull_request.number }}"
+          if compgen -G "docs/decisions/reviews/${PR}-*.json" > /dev/null; then
+            echo "Review artifact found."
+          else
+            echo "::error::No review artifact at docs/decisions/reviews/${PR}-*.json"
+            echo "Run the stage review checkpoint before merging."
+            exit 1
+          fi
 ```
 
 Commit: `ci: add main workflow with lint, type, test, gitleaks, docs jobs`.
@@ -558,7 +574,8 @@ gh api -X PUT /repos/loganrooks/erebus/branches/main/protection \
       "test-unit-meta (macos-latest)",
       "test-integration",
       "gitleaks",
-      "docs-consistency"
+      "docs-consistency",
+      "review-artifact-exists"
     ]
   },
   "enforce_admins": false,

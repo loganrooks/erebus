@@ -141,9 +141,11 @@ trigger CI without spam-pinging reviewers. Draft early, ready late.
 - [ ] `pre-commit run --all-files` passes
 - [ ] CI jobs green: `lint-and-type`, `test-unit-meta
       (ubuntu-latest)`, `test-unit-meta (macos-latest)`,
-      `test-integration`, `gitleaks`, `docs-consistency`
+      `test-integration`, `gitleaks`, `docs-consistency`,
+      `review-artifact-exists`
 - [ ] Lab clip rendered + reviewed: `lab/outputs/<filename>`
-- [ ] Cross-vendor review checkpoint run: `docs/decisions/reviews/<PR>.md`
+- [ ] Cross-vendor review run; artifact committed at
+      `docs/decisions/reviews/<PR>-*.json`
 
 ## Out of scope
 
@@ -158,6 +160,7 @@ trigger CI without spam-pinging reviewers. Draft early, ready late.
 - `test-integration`
 - `gitleaks`
 - `docs-consistency`
+- `review-artifact-exists`
 
 `test-e2e` runs conditionally (on PRs touching `erebus/`,
 `presets/`, or `tests/e2e/`) and is not in the required list. It
@@ -207,6 +210,22 @@ would miss in its own output.
 | Architectural review      | Before adopting a new dependency or pattern | Recommended |
 | Recovery review           | After invoking the recovery procedure       | Yes       |
 | Pre-setup audit (Goal 0)  | First action of Goal 0                      | Yes (by setup goal) |
+
+**Enforcement:** The stage review checkpoint is required by PR
+checklist (manual). A CI job `review-artifact-exists` verifies that
+a review file exists at
+`docs/decisions/reviews/<PR-NUMBER>-*.{json,md}` and is non-empty
+before the PR can merge. The job does NOT inspect content; a
+reviewer with no MUST-fix findings produces a valid artifact
+equally with a reviewer that finds many. Content gating
+(auto-block on MUST-fix items) is a Phase-2 enhancement.
+
+**Fallback paths:** If `claude -p` is rate-limited, run with
+`--model claude-haiku-4-5` as a degraded fallback and note the
+model choice in the review file. If the reviewer is unavailable
+entirely (Anthropic API outage), document the skip in `NOTES.md`
+and proceed with an explicit human signoff in the PR; the review
+must be run retrospectively within 24 hours.
 
 ### How to run a checkpoint with `claude -p`
 
