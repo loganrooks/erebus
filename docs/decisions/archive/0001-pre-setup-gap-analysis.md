@@ -1,6 +1,6 @@
 # 0001 - Pre-setup gap analysis
 
-- **Status:** proposed
+- **Status:** resolved (all 17 findings addressed per 0002; see Resolution log below)
 - **Date:** 2026-05-24
 - **Author:** Codex
 - **Related REQ-IDs:** (none - this is meta)
