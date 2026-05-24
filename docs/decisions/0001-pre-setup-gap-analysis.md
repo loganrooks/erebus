@@ -317,7 +317,11 @@ branch protection, or commits begin.
 - Finding 3: resolved per 0002 §Finding-3; rewrote REQUIREMENTS.md intro
   to bidirectional many-to-many coverage; added clarifying paragraph in
   TEST_SPEC.md permitting multi-REQ citations on a single anchor.
-- Finding 4:
+- Finding 4: resolved per 0002 §Finding-4; aligned WORKFLOW.md's
+  required-checks list and the PR template's Verification block to
+  the job names defined in REPO_SETUP.md's CI workflow
+  (lint-and-type, test-unit-meta {ubuntu,macos}, test-integration,
+  gitleaks, docs-consistency).
 - Finding 5:
 - Finding 6: resolved per 0002 §Finding-6; rewrote AGENTS.md
   non-negotiable rule #1 to point ffmpeg/ffprobe at

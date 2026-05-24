@@ -123,6 +123,9 @@ trigger CI without spam-pinging reviewers. Draft early, ready late.
 - [ ] All affected anchors green: `<anchor_name>`, …
 - [ ] `uv run pytest -m phase1` passes locally
 - [ ] `pre-commit run --all-files` passes
+- [ ] CI jobs green: `lint-and-type`, `test-unit-meta
+      (ubuntu-latest)`, `test-unit-meta (macos-latest)`,
+      `test-integration`, `gitleaks`, `docs-consistency`
 - [ ] Lab clip rendered + reviewed: `lab/outputs/<filename>`
 - [ ] Cross-vendor review checkpoint run: `docs/decisions/reviews/<PR>.md`
 
@@ -133,17 +136,16 @@ trigger CI without spam-pinging reviewers. Draft early, ready late.
 
 ### Required CI checks
 
-- `ruff-check`
-- `ruff-format`
-- `mypy`
-- `pytest-unit`
-- `pytest-integration`
-- `pytest-meta` (the docs-consistency checks)
+- `lint-and-type`
+- `test-unit-meta (ubuntu-latest)`
+- `test-unit-meta (macos-latest)`
+- `test-integration`
 - `gitleaks`
-- `docs-consistency` (one job, summarizes meta-test results)
+- `docs-consistency`
 
-`pytest-e2e` runs on PRs touching `erebus/`, `presets/`, or
-`tests/e2e/` but is not required for PRs that only touch docs.
+`test-e2e` runs conditionally (on PRs touching `erebus/`,
+`presets/`, or `tests/e2e/`) and is not in the required list. It
+must still be green when it runs.
 
 ### Merging
 
