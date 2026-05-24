@@ -344,7 +344,11 @@ branch protection, or commits begin.
   added `stages: [pre-commit, manual]` to the gitleaks hook in
   .pre-commit-config.yaml; updated REPO_SETUP.md §1 pre-flight to
   note gitleaks is pre-commit-managed.
-- Finding 9:
+- Finding 9: resolved per 0002 §Finding-9; appended an
+  enforcement-model paragraph to WORKFLOW.md §"Why we don't bypass
+  hooks" documenting the three policy layers (NOTES.md audit trail,
+  stage-review checkpoint, branch-protection PR review) and noting
+  a Phase-2 CI scan as a future enhancement.
 - Finding 10: resolved per 0002 §Finding-10; documented the
   dual-marker convention (meta tests carry both phase1 and meta) in
   REPO_SETUP.md pyproject markers; updated pre-commit pytest entry,

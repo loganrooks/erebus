@@ -98,6 +98,22 @@ either flag on a commit destined for `main` as a hard violation.
 If a hook is broken, fix the hook in its own `chore(ci): ...`
 commit. Don't bypass it.
 
+**Enforcement model:** This rule is enforced by three layers that
+work together, not by CI:
+
+1. `NOTES.md` audit trail: every agent turn appends an entry. A
+   bypass leaves a gap or an admission.
+2. The stage review checkpoint inspects the diff and the commit
+   metadata for forbidden flag usage as part of its security check
+   (per `docs/review-prompts/stage-review.md` Check 5).
+3. Branch protection requires PR review; a reviewing human (or the
+   cross-vendor agent) can flag suspicious commit patterns.
+
+A future Phase-2 enhancement may add a mechanical CI scan of commit
+metadata for `--no-verify` and `--dangerously-skip-permissions`
+strings. Until then, treat this rule as policy-enforced, not
+CI-enforced.
+
 ## 3. Pull requests
 
 Open a PR as a draft as soon as the branch has one commit. Drafts
