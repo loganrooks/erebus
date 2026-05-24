@@ -392,7 +392,16 @@ branch protection, or commits begin.
   to cover lab/clips with .gitkeep escapes; added the
   scripts/generate_fixtures.py stub to §3.6; updated TESTING.md §6
   to point at the generator script and the synthetic-only rule.
-- Finding 17:
+- Finding 17: resolved per 0002 §Finding-17; created
+  docs/decisions/0003-name-and-license.md recording the `erebus` +
+  MIT decision. Namespace claim verified live:
+  `gh search repos erebus --owner=loganrooks` returned no results
+  as of 2026-05-24. Note: 0001 and 0002 themselves don't satisfy
+  the new test_adr_files_match_template anchor (no level-2
+  "Decision"/"Consequences" sections) — when that anchor is
+  implemented in Phase 1, the implementer will need to either
+  restructure these files, move them to archive first, or add an
+  exception pattern for gap-analysis/resolution-style ADRs.
 
 Once all MUST-resolve items have resolutions, change status to `resolved` and
 move this file to `docs/decisions/archive/`.
