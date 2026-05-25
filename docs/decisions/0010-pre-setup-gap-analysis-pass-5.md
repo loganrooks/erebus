@@ -297,4 +297,8 @@ Findings below.
 
 ## Resolution log
 
-<!-- Logan to fill in. -->
+- Finding 1: resolved; added yt-dlp to PROJECT.md §11's Python
+  dependencies list (it was listed only as an external binary)
+  and added a clarifying parenthetical explaining the
+  binary/wheel relationship and pin authority. Brings §11 into
+  agreement with REPO_SETUP.md §3.3 pyproject.toml.

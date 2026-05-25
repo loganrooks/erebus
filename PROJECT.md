@@ -436,13 +436,18 @@ Implementation order in Phase 4: A → B → C.
 
 ## 11. Dependencies (Phase 1)
 
-External binaries: `ffmpeg` ≥ 6, `yt-dlp`, `ffprobe`.
+External binaries: `ffmpeg` ≥ 6, `yt-dlp`, `ffprobe`. (`yt-dlp` is
+also a Python package — pinned in `pyproject.toml` and installed by
+`uv sync` — the binary on PATH is the entrypoint shipped by that
+wheel. The §1 preflight check verifies a host `yt-dlp` exists at
+the declared minimum; post-bootstrap, `uv sync` enforces the
+pyproject pin and is authoritative.)
 
 Python (declared with minimum versions in `pyproject.toml`; exact
 resolved versions locked in `uv.lock` and committed):
-`typer`, `pydantic` v2, `rich`. (`tomllib` from stdlib for TOML
-parsing — Python ≥ 3.11 is required so no third-party fallback is
-needed.)
+`typer`, `pydantic` v2, `rich`, `yt-dlp`. (`tomllib` from stdlib
+for TOML parsing — Python ≥ 3.11 is required so no third-party
+fallback is needed.)
 
 Out of scope for Phase 1: any ML dep (`librosa`, `torch`, `numpy`
 for audio analysis), projectM, headless browsers, AcoustID.
