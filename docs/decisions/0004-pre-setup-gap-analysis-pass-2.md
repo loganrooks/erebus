@@ -726,3 +726,9 @@ declarations.
   from REPO_SETUP.md §3.3 (dead because `requires-python >= 3.11`
   blocks 3.10); rewrote PROJECT.md §11 to name `tomllib` (stdlib)
   with explicit rationale.
+- Finding 19: resolved per 0005 §Finding-19; rewrote AGENTS.md
+  §"Self-audit before setup work" to use `NNNN-` placeholders with
+  a `-pass-N` suffix convention, and added explicit guidance to
+  read prior passes from `docs/decisions/archive/` before
+  producing new findings. Updated REPO_SETUP.md §3.5 doc list and
+  §8 done-list to use the same path-abstract form.

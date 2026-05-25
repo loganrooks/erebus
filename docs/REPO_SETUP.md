@@ -288,8 +288,9 @@ respective sections of the project documentation):
 - `docs/WORKFLOW.md`
 - `docs/REPO_SETUP.md` (this file)
 - `docs/decisions/TEMPLATE.md`
-- `docs/decisions/0001-pre-setup-gap-analysis.md` (the agent's
-  audit output)
+- `docs/decisions/NNNN-pre-setup-gap-analysis*.md` (the agent's
+  audit output; current pass lives in `docs/decisions/`,
+  resolved prior passes in `docs/decisions/archive/`)
 - `docs/review-prompts/stage-review.md`
 - `docs/review-prompts/pre-setup-audit.md`
 - `docs/review-prompts/phase-completion.md`
@@ -692,9 +693,12 @@ Goal 0 is **complete** when all of these hold:
       shows required status checks + required PR review.
 - [ ] No secrets, no `cache/`, no `lab/outputs/`, no `.env` are
       tracked (verified by `git ls-files`).
-- [ ] The pre-setup gap analysis (`docs/decisions/0001-...`) is
-      either marked `status: resolved` and archived, or the
-      human has explicitly accepted each item.
+- [ ] The most recent pre-setup gap analysis
+      (`docs/decisions/NNNN-pre-setup-gap-analysis*.md` in the
+      live directory) is either marked `status: resolved` and
+      archived, or the human has explicitly accepted each item.
+      Earlier resolved passes live in
+      `docs/decisions/archive/`.
 - [ ] The post-setup cross-vendor review (run via `claude -p` per
       WORKFLOW.md §5) reports no MUST-fix items.
 

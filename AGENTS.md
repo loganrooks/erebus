@@ -168,11 +168,19 @@ recoverable; see WORKFLOW.md §"Recovery".
 
 If you are operating under Goal 0, your **first action** is the
 pre-setup self-audit defined in the goal. Read every document listed
-in PROJECT.md §3 in full, then produce
-`docs/decisions/0001-pre-setup-gap-analysis.md` listing every
-contradiction, missing piece, and ambiguity you find. Stop there and
-surface to the human. Do not begin setup work until the human
-resolves each item.
+in PROJECT.md §3 in full, then produce the next-numbered ADR at
+`docs/decisions/NNNN-pre-setup-gap-analysis.md` (subsequent passes
+use a `-pass-N` suffix, e.g.
+`docs/decisions/0004-pre-setup-gap-analysis-pass-2.md`) listing
+every contradiction, missing piece, and ambiguity you find. Stop
+there and surface to the human. Do not begin setup work until the
+human resolves each item.
+
+Prior passes live in `docs/decisions/archive/` after their MUST
+items have been resolved. Read those archives before producing your
+own findings so you do not re-raise issues that have already been
+addressed; if you believe a past resolution was applied incorrectly
+or introduced a new problem, raise that as a finding in your pass.
 
 This is not optional and not skippable. You are the first reviewer of
 the human's own plan, and they expect you to catch what they missed.
