@@ -4,7 +4,10 @@
 - **Date:** 2026-05-25
 - **Scope:** Bootstrap state of `loganrooks/erebus` after Goal-0
   commits `a9f2ea0..1b1fc3c` (plus this review-artifact commit).
-  PR #1 carries the GitHub issue + PR templates and this artifact.
+  PR #1 carries the GitHub issue + PR templates, this artifact,
+  and the in-PR resolutions of Findings 1 and 2 below
+  (commits `5546858` and `33291d3` patching REPO_SETUP.md §3.1
+  and §3.8 respectively).
 - **Related ADRs:** `docs/decisions/archive/0010-pre-setup-gap-analysis-pass-5.md`
   (last pre-setup audit, resolved cycle); `docs/decisions/reviews/`
   (this directory).
