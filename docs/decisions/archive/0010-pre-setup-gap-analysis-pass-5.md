@@ -1,7 +1,9 @@
 # 0010 — Pre-setup gap analysis (pass 5)
 
-- **Status:** proposed
+- **Status:** resolved
 - **Date:** 2026-05-24
+- **Resolved:** 2026-05-24 (3 of 8 findings; 5 deferred — see
+  closing note). **Pre-setup audit cycle is complete.**
 - **Author(s):** Claude Code (claude-opus-4-7) — fifth-pass audit
 - **Related ADRs:** archive/0001 (pass-1 audit, resolved),
   0002 (pass-1 resolution plan),
@@ -310,3 +312,39 @@ Findings below.
   WORKFLOW.md §3 to match the CI check and the §5 canonical
   invocation (which writes both `.json` and `.md`). The three
   voices now agree on `{json,md}`.
+
+## Deferred findings (5)
+
+Cycle terminating with these deferred to the Phase-1 prep backlog
+(joining 9 + 9 + 16 from the prior passes — combined backlog:
+**39 items**). None block Goal-0; all need either Phase-1 design
+context or are cosmetic.
+
+- **SHOULD (3):** 2 (AGENTS.md `REQUIREMENTS.md §"Stage protocol"`
+  dead cross-reference), 3 (`test_path_containment` anti-tautology
+  gap — missing positive-direction assertion), 5 (reviewer-
+  unavailable fallback in WORKFLOW.md §5 doesn't survive the
+  `review-artifact-exists` gate — needs a stub-artifact convention
+  or admin-override naming).
+- **CONSIDER (2):** 6 (§3.6 stub-file mypy strict guidance:
+  annotation, not `NotImplementedError`, is what passes), 8
+  (REQ-CLI-002 names `concat` trim but no REQ-CONCAT establishes
+  the contract — repeat of pass-2 Finding 10 and pass-3 Finding 10,
+  intentionally deferred to Phase-1 architectural design).
+
+## Cycle complete
+
+Two consecutive zero-MUST passes (4 and 5) with a sharp drop in
+total findings (20 → 8). The pre-setup audit cycle terminates
+here. Goal-0 setup work (repo create, branch protection, push)
+runs as a separate goal after the resolution PR merges.
+
+### Convergence trend
+
+| Pass | Total | MUST | SHOULD | CONSIDER |
+|---|---|---|---|---|
+| 1 (archive/0001) | 17 | 8 | 7 | 2 |
+| 2 (archive/0004) | 23 | 3 | 13 | 7 |
+| 3 (archive/0006) | 14 | 2 | 6 | 6 |
+| 4 (archive/0008) | 20 | 0 | 12 | 8 |
+| 5 (this) | **8** | **0** | 5 | 3 |
