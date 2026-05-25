@@ -20,13 +20,12 @@ pre-commit --version   # pre-commit framework
 ffmpeg -version | head -1  # ≥ 6.0
 yt-dlp --version
 
-# Verify yt-dlp meets the declared minimum (REQ-SEC-005). The minimum
-# is read from pyproject.toml [project.dependencies] so there is one
-# source of truth; bumping the floor in pyproject.toml also raises the
-# preflight bar.
-YT_DLP_MIN=$(python3 -c "import tomllib, pathlib; \
-  deps = tomllib.loads(pathlib.Path('pyproject.toml').read_text())['project']['dependencies']; \
-  print(next(d.split('>=')[1].strip() for d in deps if d.startswith('yt-dlp')))")
+# Verify yt-dlp meets the declared minimum (REQ-SEC-005). §1 runs
+# before §3.3 creates pyproject.toml, so the floor is hardcoded
+# here. Keep this value in sync with the `yt-dlp >= ...` line in
+# pyproject.toml [project.dependencies]; post-bootstrap, `uv sync`
+# enforces the pyproject pin automatically and is authoritative.
+YT_DLP_MIN="2024.7.16"
 yt-dlp --version | awk -v min="$YT_DLP_MIN" '
   { split($1, v, "."); split(min, m, ".");
     for (i = 1; i <= 3; i++) {

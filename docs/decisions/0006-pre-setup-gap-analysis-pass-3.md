@@ -511,3 +511,10 @@ conditions (no `pyproject.toml`, no `erebus/`, no `tests/`, no
   -m phase1` now collects one test and exits 0 instead of 5, so the
   required `test-integration` CI job goes green on the first run
   on `main`.
+- Finding 5: resolved per 0007 §Finding-5; hardcoded `YT_DLP_MIN`
+  in REPO_SETUP.md §1 preflight (with a "keep in sync with
+  pyproject.toml" comment) instead of reading from pyproject via
+  tomllib — §1 runs before §3.3 creates pyproject, so the dynamic
+  read was an ordering bug introduced in pass-2 Finding 11. Post-
+  bootstrap, `uv sync` enforces the pyproject pin and is
+  authoritative.
