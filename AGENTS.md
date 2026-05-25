@@ -50,9 +50,10 @@ human to revert the agent's work and restart with a narrower goal.
    that the human has approved for that mode.
 
 4. **No new dependencies without a docs update.** If a stage needs
-   something not in `pyproject.toml`, update `docs/REQUIREMENTS.md`
-   §"Dependencies" with the rationale, then rerun the pre-setup
-   audit before installing.
+   something not in `pyproject.toml`, update `PROJECT.md` §11
+   ("Dependencies (Phase 1)") with the rationale, add the dep to
+   `pyproject.toml`, and rerun the pre-setup audit before
+   installing.
 
 5. **Tests come before implementation.** The TDD anchor for the
    behaviour you're implementing must exist in

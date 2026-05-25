@@ -501,4 +501,7 @@ forward-tense risks; no item blocks Goal 0 from starting.
 
 ## Resolution log
 
-(Left empty for Logan to fill in as items are addressed.)
+- Finding 1: resolved per 0009 §Finding-1; rewrote AGENTS.md
+  Rule 4 to reference `PROJECT.md §11` (the actual dependency
+  list) instead of the non-existent `REQUIREMENTS.md §"Dependencies"`.
+  Auditor's option (b).
