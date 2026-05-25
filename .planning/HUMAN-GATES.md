@@ -12,12 +12,12 @@ unclear.
 
 ## HUMAN-GATE-1 — `/goal` launch authorization
 
-**When.** Once, at the start of Phase-1. After PR #2 (this
+**When.** Once, at the start of Phase-1. After PR #3 (this
 orchestration setup) merges, Logan opens codex, pastes
 `.planning/auto-execution/GOAL_PROMPT.md`, and types `GO`. The
 gate is implicit: /goal does not exist until Logan launches it.
 
-**Status:** pending until PR #2 merges.
+**Status:** pending until PR #3 merges.
 
 ## HUMAN-GATE-2 — First-PR validation run
 
