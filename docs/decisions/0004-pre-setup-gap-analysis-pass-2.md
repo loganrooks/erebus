@@ -721,3 +721,8 @@ declarations.
 - Finding 12: resolved per 0005 §Finding-12; aligned TESTING.md
   §7's pre-commit description to use `-m "phase1 or meta"`,
   matching WORKFLOW.md §2 and REPO_SETUP.md §3.4.
+- Finding 15: resolved per 0005 §Finding-15; removed the
+  conditional `tomli >= 2.0; python_version < '3.11'` dependency
+  from REPO_SETUP.md §3.3 (dead because `requires-python >= 3.11`
+  blocks 3.10); rewrote PROJECT.md §11 to name `tomllib` (stdlib)
+  with explicit rationale.

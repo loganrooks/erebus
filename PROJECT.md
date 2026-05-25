@@ -409,7 +409,9 @@ External binaries: `ffmpeg` ≥ 6, `yt-dlp`, `ffprobe`.
 
 Python (declared with minimum versions in `pyproject.toml`; exact
 resolved versions locked in `uv.lock` and committed):
-`typer`, `pydantic` v2, `rich`, `tomli`/`tomllib`.
+`typer`, `pydantic` v2, `rich`. (`tomllib` from stdlib for TOML
+parsing — Python ≥ 3.11 is required so no third-party fallback is
+needed.)
 
 Out of scope for Phase 1: any ML dep (`librosa`, `torch`, `numpy`
 for audio analysis), projectM, headless browsers, AcoustID.
