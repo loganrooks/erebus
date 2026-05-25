@@ -302,3 +302,7 @@ Findings below.
   and added a clarifying parenthetical explaining the
   binary/wheel relationship and pin authority. Brings §11 into
   agreement with REPO_SETUP.md §3.3 pyproject.toml.
+- Finding 4: resolved; added `tests/e2e/test_smoke.py` placeholder
+  to REPO_SETUP.md §3.6.1, mirroring `tests/integration/test_smoke.py`
+  from pass-3 Finding 2. The first PR touching erebus/ will no
+  longer hit pytest exit-5 on the test-e2e workflow.
