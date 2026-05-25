@@ -1,13 +1,16 @@
 # 0006 — Pre-setup gap analysis (pass 3)
 
-- **Status:** proposed
+- **Status:** resolved
 - **Date:** 2026-05-24
+- **Resolved:** 2026-05-24 (5 of 14 findings; 9 deferred — see
+  closing note)
 - **Author:** Claude Code (claude-opus-4-7) — third-pass audit
 - **Related ADRs:** archive/0001 (pass-1 audit, resolved),
   0002 (pass-1 resolution plan),
   0003 (name + license),
   archive/0004 (pass-2 audit, resolved),
-  0005 (pass-2 resolution plan)
+  0005 (pass-2 resolution plan),
+  0007 (pass-3 resolution plan)
 - **Related REQ-IDs:** (none — this is meta)
 - **Related anchors:** (none — this is meta)
 
@@ -532,3 +535,25 @@ conditions (no `pyproject.toml`, no `erebus/`, no `tests/`, no
   work" explaining that pass-N invocations may carry a cold-read
   wrapper that overrides the default "read archives" instruction.
   Documents the pattern that pass-2 and pass-3 already used.
+
+## Deferred findings (9)
+
+Per 0007 §Decision summary, the following findings were
+intentionally deferred to the Phase-1 prep backlog (alongside
+0005's earlier 9 deferred items). They are real but do not block
+Goal-0 setup; each benefits from being decided with implementation
+context or is pure-doc/CI cleanup. See 0007 §"Deferred findings"
+for per-item rationale.
+
+- **SHOULD-resolve (3):** 3 (`test_adr_files_match_template` vs
+  audit-ADR shape), 4 (REQ-ARCH-005 schema-defaults carve-out),
+  7 (`test_caption_fade_timing` extraction method).
+- **CONSIDER (6):** 9 (`test_mix_uses_two_stream_amix` trivial
+  assertion), 10 (`test_concat_lossless_when_inputs_match` time
+  heuristic), 11 (three gitleaks invocations), 12 (`test-unit-meta`
+  installs ffmpeg on macOS), 13 (`.gitkeep` files not actually
+  committed), 14 (mypy `strict` + redundant sub-flags).
+
+Combined Phase-1 prep backlog after this PR: 18 items (9 from
+0005 + 9 from here). Track in `NOTES.md` or as GitHub issues once
+the repo is public.
