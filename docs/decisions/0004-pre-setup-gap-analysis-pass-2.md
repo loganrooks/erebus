@@ -738,3 +738,9 @@ declarations.
   was inherited from a flow that passed `--license=mit` to
   `gh repo create`; §2 now explicitly omits that flag, so the
   conditional was an always-taken branch.
+- Finding 5: resolved per 0005 §Finding-5; removed the broken
+  test-e2e job from `ci.yml` (used push-only `head_commit.modified`
+  in a `pull_request:` context, so it never matched and silently
+  skipped). Added a new `.github/workflows/test-e2e.yml` with a
+  proper `paths:` filter on `pull_request:` plus `workflow_dispatch`
+  for ad-hoc runs.

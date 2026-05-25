@@ -513,22 +513,6 @@ jobs:
       - run: uv pip install yt-dlp
       - run: uv run pytest tests/integration -m phase1
 
-  test-e2e:
-    runs-on: ubuntu-latest
-    if: |
-      contains(github.event.pull_request.labels.*.name, 'e2e') ||
-      contains(github.event.head_commit.modified, 'erebus/') ||
-      contains(github.event.head_commit.modified, 'presets/') ||
-      contains(github.event.head_commit.modified, 'tests/e2e/')
-    steps:
-      - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v3
-      - run: uv python install 3.11
-      - run: uv sync --extra dev
-      - run: sudo apt-get update && sudo apt-get install -y ffmpeg
-      - run: uv pip install yt-dlp
-      - run: uv run pytest tests/e2e -m phase1 --run-e2e
-
   gitleaks:
     runs-on: ubuntu-latest
     steps:
@@ -567,6 +551,58 @@ jobs:
 ```
 
 Section of bootstrap commit: `ci: add main workflow with lint, type, test, gitleaks, docs jobs`.
+
+The end-to-end job is split into its own workflow so its
+path-filter trigger works correctly on `pull_request` events.
+
+`.github/workflows/test-e2e.yml`:
+
+```yaml
+name: test-e2e
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'erebus/**'
+      - 'presets/**'
+      - 'tests/e2e/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: test-e2e-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test-e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v3
+      - run: uv python install 3.11
+      - run: uv sync --extra dev
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - run: uv pip install yt-dlp
+      - run: uv run pytest tests/e2e -m phase1 --run-e2e
+```
+
+The `paths:` filter on `pull_request:` is the workflow-trigger
+mechanism (GitHub-native, no third-party action). It evaluates
+against the actual diff for the PR, so the job runs when
+`erebus/`, `presets/`, or `tests/e2e/` change and skips
+otherwise. `workflow_dispatch` exposes a manual-run button for
+ad-hoc runs.
+
+The earlier inline `test-e2e` job in `ci.yml` used
+`github.event.head_commit.modified`, which is populated only on
+`push` events — on `pull_request` events that field is empty, so
+the conditional never matched and the job silently skipped. The
+split workflow corrects that.
+
+Section of bootstrap commit: `ci: add test-e2e workflow with paths-filter trigger`.
 
 ### Step 3.8 — README
 
