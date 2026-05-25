@@ -173,7 +173,17 @@ Squash-merging is **disabled** at the repo level (it flattens the
 red-green-refactor sequence). Merge commits use the default
 `gh pr merge --merge` and preserve commit history.
 
-Only the human merges. The agent never merges its own PRs.
+**Merge authority.** Outside Phase-1 autonomous execution, only
+the human merges and no agent merges its own PR. During Phase-1
+autonomous execution (per
+[`docs/decisions/0011-phase-1-orchestration.md`](decisions/0011-phase-1-orchestration.md)),
+the Claude monitor session — distinct from the codex orchestrator
+that opened the PR — may merge when all seven hard preconditions
+in §"Merge gating" of that ADR are satisfied. The codex
+orchestrator never merges; the `@codex review` bot never merges.
+
+See §6 "Autonomous execution (Phase-1)" below for the full
+orchestration model.
 
 ## 4. The journal — `NOTES.md`
 
@@ -348,6 +358,42 @@ Naming:
 - `docs/decisions/reviews/phase-<N>-completion.md` for phase reviews
 - `docs/decisions/<NNNN>-<topic>.md` for ADRs
 - `docs/decisions/archive/` for resolved gap analyses
+
+### Autonomous execution (Phase-1)
+
+Phase-1 runs as an autonomous codex `/goal` execution per
+[`docs/decisions/0011-phase-1-orchestration.md`](decisions/0011-phase-1-orchestration.md).
+The cross-vendor review checkpoints above remain in force during
+autonomous execution; the orchestration adds three new surfaces:
+
+1. **Codex orchestrator under `/goal`.** Opens PRs, pushes
+   commits, writes tests, manages STATE.md. Reads
+   `.planning/auto-execution/GOAL_PROMPT.md` on launch.
+2. **`@codex review` GitHub bot.** Automatic per-PR diff
+   review. Composes with the stage review checkpoint above
+   (both run on every PR; codex bot is fast/shallow, the
+   checkpointed `claude -p` review is deeper and is
+   triggered at stage boundaries).
+3. **Claude monitor session.** Separate Claude Code session,
+   loaded with the `escalation-watch` and `pr-review-triage`
+   skills. Triages codex bot findings, addresses small
+   findings directly, escalates HUMAN-GATE items to Logan,
+   merges PRs when the seven hard preconditions in the
+   orchestration ADR §"Merge gating" are satisfied.
+
+The dormancy contract in
+[`.planning/EXECUTION-MODEL.md`](../.planning/EXECUTION-MODEL.md)
+§"Dormancy contract" is in force throughout. When the
+orchestrator awaits an external event (CI, codex review,
+monitor merge, maintainer escalation), it invokes a foreground
+`wait-for-X.sh` script in the same turn — zero tokens are
+consumed while waiting. This is the F-007 systemic fix
+ported from agentic-ops.
+
+The orchestrator never merges. The monitor merges only the
+PRs the orchestrator opens. Logan resolves HUMAN-GATE
+escalations (creative-direction, lab-clip reviews, auth
+failures).
 
 ## 6. Permissions
 
