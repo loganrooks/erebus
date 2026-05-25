@@ -182,6 +182,14 @@ own findings so you do not re-raise issues that have already been
 addressed; if you believe a past resolution was applied incorrectly
 or introduced a new problem, raise that as a finding in your pass.
 
+If the human invokes a later pass with a wrapper prompt that
+overrides this default (e.g. a "cold read — do not read prior
+passes" instruction), the wrapper wins. Cold-read passes are
+useful when the goal is to surface issues that the prior-pass
+framing might have anchored you away from; archive-aware passes
+are useful when the goal is to verify resolutions landed
+correctly. The invocation chooses; AGENTS.md is the default.
+
 This is not optional and not skippable. You are the first reviewer of
 the human's own plan, and they expect you to catch what they missed.
 

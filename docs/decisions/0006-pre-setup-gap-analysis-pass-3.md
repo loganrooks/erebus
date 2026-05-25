@@ -527,3 +527,8 @@ conditions (no `pyproject.toml`, no `erebus/`, no `tests/`, no
   (`test_every_req_id_has_test_anchor`,
   `test_every_anchor_has_test_function`) remain planned-but-not-
   yet-implemented per the lifecycle pattern in TESTING.md §3.
+- Finding 8: resolved per 0007 §Finding-8; added an override-
+  acknowledgment paragraph to AGENTS.md §"Self-audit before setup
+  work" explaining that pass-N invocations may carry a cold-read
+  wrapper that overrides the default "read archives" instruction.
+  Documents the pattern that pass-2 and pass-3 already used.
