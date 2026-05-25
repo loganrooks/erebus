@@ -753,3 +753,8 @@ declarations.
   `uv pip install yt-dlp` lines from CI workflows (base
   `uv sync --extra dev` now installs yt-dlp via the dependency
   declaration).
+- Finding 13: resolved per 0005 §Finding-13; rewrote the
+  `review-artifact-exists` CI job in REPO_SETUP.md §3.7 to use
+  `find "$DIR" -name "${PR}-*" -type f -size +0c`, matching any
+  extension (WORKFLOW.md §5 permits both `.json` and `.md`) and
+  enforcing the previously-unimplemented "non-empty" qualifier.

@@ -552,10 +552,17 @@ jobs:
       - name: Check for review artifact
         run: |
           PR="${{ github.event.pull_request.number }}"
-          if compgen -G "docs/decisions/reviews/${PR}-*.json" > /dev/null; then
-            echo "Review artifact found."
+          DIR="docs/decisions/reviews"
+          # WORKFLOW.md §5 permits either .json or .md for review
+          # artifacts. Match any extension and require a non-empty
+          # file (per the "non-empty" qualifier in WORKFLOW.md §5).
+          matches=$(find "$DIR" -name "${PR}-*" -type f -size +0c 2>/dev/null || true)
+          if [ -n "$matches" ]; then
+            echo "Review artifact(s) found:"
+            echo "$matches"
           else
-            echo "::error::No review artifact at docs/decisions/reviews/${PR}-*.json"
+            echo "::error::No non-empty review artifact at $DIR/${PR}-*"
+            echo "::error::Expected at least one file matching $DIR/${PR}-<reviewer>.{json,md}"
             echo "Run the stage review checkpoint before merging."
             exit 1
           fi
