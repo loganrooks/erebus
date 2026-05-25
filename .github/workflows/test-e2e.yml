@@ -1,0 +1,28 @@
+name: test-e2e
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'erebus/**'
+      - 'presets/**'
+      - 'tests/e2e/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: test-e2e-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test-e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v3
+      - run: uv python install 3.11
+      - run: uv sync --extra dev
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - run: uv run pytest tests/e2e -m phase1 --run-e2e

@@ -1,0 +1,100 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint-and-type:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+      - run: uv python install 3.11
+      - run: uv sync --extra dev
+      - run: uv run ruff check .
+      - run: uv run ruff format --check .
+      - run: uv run mypy .
+
+  test-unit-meta:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v3
+      - run: uv python install 3.11
+      - run: uv sync --extra dev
+      - name: Install ffmpeg
+        run: |
+          if [[ "${{ matrix.os }}" == "ubuntu-latest" ]]; then
+            sudo apt-get update && sudo apt-get install -y ffmpeg
+          else
+            brew install ffmpeg
+          fi
+      - run: uv run pytest tests/unit tests/meta -m "phase1 or meta"
+
+  test-integration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v3
+      - run: uv python install 3.11
+      - run: uv sync --extra dev
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - run: uv run pytest tests/integration -m phase1
+
+  gitleaks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: astral-sh/setup-uv@v3
+      - run: uv python install 3.11
+      - run: uv sync --extra dev
+      - run: uv run pre-commit run --hook-stage manual gitleaks --all-files
+
+  docs-consistency:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v3
+      - run: uv python install 3.11
+      - run: uv sync --extra dev
+      - run: uv run pytest tests/meta -m meta
+
+  review-artifact-exists:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check for review artifact
+        run: |
+          PR="${{ github.event.pull_request.number }}"
+          DIR="docs/decisions/reviews"
+          # WORKFLOW.md §5 permits either .json or .md for review
+          # artifacts. Match any extension and require a non-empty
+          # file (per the "non-empty" qualifier in WORKFLOW.md §5).
+          matches=$(find "$DIR" -name "${PR}-*" -type f -size +0c 2>/dev/null || true)
+          if [ -n "$matches" ]; then
+            echo "Review artifact(s) found:"
+            echo "$matches"
+          else
+            echo "::error::No non-empty review artifact at $DIR/${PR}-*"
+            echo "::error::Expected at least one file matching $DIR/${PR}-<reviewer>.{json,md}"
+            echo "Run the stage review checkpoint before merging."
+            exit 1
+          fi
