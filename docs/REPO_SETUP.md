@@ -369,7 +369,30 @@ that passes immediately:
 Markers are declared in pyproject.toml [tool.pytest.ini_options];
 shared fixtures and hooks go here as they are introduced.
 """
+
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    import pytest
+
+
+def pytest_addoption(parser: pytest.Parser) -> None:
+    parser.addoption(
+        "--run-e2e",
+        action="store_true",
+        default=False,
+        help="Run end-to-end tests (slow; gated by default).",
+    )
 ```
+
+The `--run-e2e` option is referenced by TESTING.md §7 and by the
+test-e2e workflow; without this hook, `pytest --run-e2e` fails
+with "unrecognized argument" on the first invocation. The
+`TYPE_CHECKING`-guarded `import pytest` plus
+`from __future__ import annotations` keeps the file mypy-strict-
+clean without paying for a runtime import of pytest internals.
 
 `tests/meta/test_anchors.py`:
 

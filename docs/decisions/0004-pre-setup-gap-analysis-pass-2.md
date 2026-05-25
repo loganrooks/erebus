@@ -775,3 +775,10 @@ declarations.
   the missing-clip protocol — skip verification, log to NOTES.md,
   flag in PR description — so the agent has a documented graceful
   fallback instead of inventing a substitute.
+- Finding 23: resolved per 0005 §Finding-23; added a
+  type-annotated `pytest_addoption` hook to the bootstrap conftest
+  in REPO_SETUP.md §3.6.1 that registers `--run-e2e`. Uses the
+  `from __future__ import annotations` + TYPE_CHECKING-guarded
+  import pattern so the file stays mypy-strict-clean. Composes
+  with Finding 3's earlier conftest cleanup; the file is now
+  exactly what the plan's combined-result example showed.
