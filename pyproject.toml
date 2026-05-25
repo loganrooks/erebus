@@ -33,6 +33,10 @@ build-backend = "hatchling.build"
 [tool.ruff]
 line-length = 100
 target-version = "py311"
+# Installed on demand from loganrooks/pr-review-journal at the version
+# pinned in .review-journal.version; ships with its own style. Excluding
+# from ruff (check + format) avoids divergence on bump.
+extend-exclude = ["tools/review-journal"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP", "N", "S", "C4", "RUF"]
@@ -47,6 +51,9 @@ strict = true
 warn_return_any = true
 warn_unreachable = true
 disallow_untyped_defs = true
+# Installed on demand from loganrooks/pr-review-journal; not part of the
+# erebus codebase. Excluded from strict type-checking.
+exclude = ["tools/review-journal/"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

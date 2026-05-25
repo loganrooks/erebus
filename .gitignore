@@ -44,3 +44,10 @@ htmlcov/
 # Claude Code / local agent state
 .claude/state/
 CLAUDE.local.md
+
+# pr-review-journal is installed on-demand from loganrooks/pr-review-journal
+# at the version pinned in .review-journal.version. CI installs via install.sh
+# before running sync-pr; local devs run the one-liner documented in AGENTS.md.
+# Vendoring would re-create the duplication the standalone extraction was
+# meant to solve.
+tools/review-journal/

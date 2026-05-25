@@ -1,0 +1,19 @@
+{
+  "enforcement_mode": "warning",
+  "reviewers": ["copilot-pull-request-reviewer", "coderabbitai", "chatgpt-codex-connector", "github-actions"],
+  "journal_dir": "docs/review-journal",
+  "reviewer_profiles": {
+    "github-actions": {
+      "kind": "bot:agentic-llm",
+      "display_name": "Claude PR review (via agentic-ops/review.yml)",
+      "severity_patterns": [
+        {"pattern": "(?i)\\bCritical\\b", "severity": "critical"},
+        {"pattern": "(?i)\\bWarning\\b", "severity": "warning"},
+        {"pattern": "(?i)\\bSuggestion\\b", "severity": "suggestion"}
+      ],
+      "auto_resolve_patterns": [],
+      "notes": "Not currently configured on this repo; profile is here for forward-compat. If you add the agentic-ops review workflow, GraphQL strips the [bot] suffix and returns 'github-actions' — hence the un-suffixed key."
+    }
+  },
+  "categories": []
+}

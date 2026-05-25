@@ -202,6 +202,65 @@ correctly. The invocation chooses; AGENTS.md is the default.
 This is not optional and not skippable. You are the first reviewer of
 the human's own plan, and they expect you to catch what they missed.
 
+## Review tooling — verdict-block discipline
+
+PR review threads are tracked in a structured per-PR journal. The tool
+ships from [`loganrooks/pr-review-journal`](https://github.com/loganrooks/pr-review-journal)
+and is **installed on demand** (not vendored) at the version pinned in
+[`.review-journal.version`](.review-journal.version). CI runs `install.sh`
+before invoking the tool; `tools/review-journal/` is gitignored. Local
+install:
+
+```bash
+VERSION=$(tr -d '[:space:]' < .review-journal.version)
+curl -fsSL "https://raw.githubusercontent.com/loganrooks/pr-review-journal/$VERSION/install.sh" \
+  | VERSION="$VERSION" bash
+```
+
+To bump the pinned version: edit `.review-journal.version`, re-run the
+above (or let CI handle it on the next push).
+
+Two paired Claude Code skills encode the discipline on both sides of a
+review thread — `pr-review-triage` (orchestrator) and `pr-reviewer`
+(reviewer) — installed user-side once via:
+
+```text
+/plugin marketplace add loganrooks/pr-review-journal
+/plugin install pr-review-journal@loganrooks/pr-review-journal
+```
+
+Every reply on a review thread begins with a fenced `review-verdict`
+block:
+
+````markdown
+```review-verdict
+verdict: ACCEPTED_MODIFIED
+commit: <sha>
+finding_category: <category>
+reviewer: <bot-login>
+notes: <one or two sentences>
+```
+````
+
+Verdict vocabulary: `ACCEPTED`, `ACCEPTED_MODIFIED`, `DEFERRED`,
+`REJECTED_FALSE_POSITIVE`, `REJECTED_BAD_FIT`, `REJECTED_REGRESSION`,
+`OBSOLETE`, `DUPLICATE`. `commit` is required for `ACCEPTED`,
+`ACCEPTED_MODIFIED`, `OBSOLETE`; `notes` is required for any
+`REJECTED_*` or `DEFERRED`. Full semantics, severity conventions per
+reviewer, and the inferred → manual backfill workflow are in
+`tools/review-journal/README.md` (available after install).
+
+Configuration is in [`.review-journal.json`](.review-journal.json) at the
+repo root. Journal files land under `docs/review-journal/`. Per-PR sync
+runs in warning mode in CI ([`.github/workflows/review-journal.yml`](.github/workflows/review-journal.yml));
+no merge is blocked on a missing verdict block today.
+
+The active reviewer here is `copilot-pull-request-reviewer[bot]`. The
+config also lists `coderabbitai`, `chatgpt-codex-connector`, and
+`github-actions` (Claude PR review via agentic-ops) for forward-compat
+if any are added later — the tool only flags reviewers that actually
+post.
+
 ## When stuck
 
 The blocker protocol in WORKFLOW.md §"Blocker protocol" describes
