@@ -2,7 +2,7 @@
 
 - **Status:** resolved (all 17 findings addressed per 0002; see Resolution log below)
 - **Date:** 2026-05-24
-- **Author:** Codex
+- **Author(s):** Codex
 - **Related REQ-IDs:** (none - this is meta)
 - **Related anchors:** (none - this is meta)
 

@@ -4,7 +4,7 @@
 - **Date:** 2026-05-24
 - **Resolved:** 2026-05-24 (14 of 23 findings; 9 deferred — see
   closing note)
-- **Author:** Claude Code (claude-opus-4-7) — second-pass audit
+- **Author(s):** Claude Code (claude-opus-4-7) — second-pass audit
 - **Related ADRs:** archive/0001 (pass-1 audit, resolved),
   0002 (pass-1 resolution plan), 0003 (name + license),
   0005 (pass-2 resolution plan)

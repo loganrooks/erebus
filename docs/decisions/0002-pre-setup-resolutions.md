@@ -2,7 +2,7 @@
 
 - **Status:** proposed
 - **Date:** 2026-05-24
-- **Author:** Logan + Claude (proposed); Claude Code (to execute)
+- **Author(s):** Logan + Claude (proposed); Claude Code (to execute)
 - **Related REQ-IDs:** REQ-DOC-001, REQ-SEC-005, plus new REQ-INTEG-001 and REQ-SEC-006 added below
 - **Related anchors:** (multiple — see per-finding sections)
 - **Supersedes:** N/A (resolves 0001)

@@ -167,7 +167,7 @@ exactly like this:
 
 - **Status:** proposed
 - **Date:** <YYYY-MM-DD>
-- **Author:** <reviewer agent identifier>
+- **Author(s):** <reviewer agent identifier>
 - **Related REQ-IDs:** (none — this is meta)
 - **Related anchors:** (none — this is meta)
 

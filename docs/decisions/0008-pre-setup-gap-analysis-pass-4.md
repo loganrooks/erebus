@@ -2,7 +2,7 @@
 
 - **Status:** proposed
 - **Date:** 2026-05-24
-- **Author:** Claude Code (claude-opus-4-7) — fourth-pass audit
+- **Author(s):** Claude Code (claude-opus-4-7) — fourth-pass audit
 - **Related ADRs:** archive/0001 (pass-1 audit, resolved),
   0002 (pass-1 resolution plan),
   0003 (name + license),
@@ -505,3 +505,10 @@ forward-tense risks; no item blocks Goal 0 from starting.
   Rule 4 to reference `PROJECT.md §11` (the actual dependency
   list) instead of the non-existent `REQUIREMENTS.md §"Dependencies"`.
   Auditor's option (b).
+- Finding 3: resolved per 0009 §Finding-3; swept all ADR headers
+  from `**Author:**` (singular) to `**Author(s):**` (plural)
+  across 7 files (0001 archive, 0002, 0004 archive, 0005, 0006
+  archive, 0007, 0008) and updated the audit-prompt template at
+  `docs/review-prompts/pre-setup-audit.md` so future passes use
+  the plural form by default. All ADRs now match TEMPLATE.md and
+  the eventual `test_adr_files_match_template` anchor.

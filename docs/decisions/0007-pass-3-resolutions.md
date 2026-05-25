@@ -2,7 +2,7 @@
 
 - **Status:** proposed
 - **Date:** 2026-05-24
-- **Author:** Claude Code (proposed); Claude Code (to execute on approval)
+- **Author(s):** Claude Code (proposed); Claude Code (to execute on approval)
 - **Related ADRs:** archive/0004 (pass-2 audit, resolved),
   0005 (pass-2 resolution plan), 0006 (pass-3 audit, this resolves)
 - **Related REQ-IDs:** REQ-DOC-001 (Finding 6)
