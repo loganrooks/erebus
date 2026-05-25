@@ -2,11 +2,15 @@
 
 - **Reviewer:** Claude Code (claude-sonnet-4-7) — self-review
 - **Date:** 2026-05-25
-- **Scope:** PR #2, single commit `8edef34` installing `pr-review-journal`
-  `v0.1.0` from `loganrooks/pr-review-journal` via the on-demand pattern.
-  6 files changed: `.gitignore`, `.review-journal.version` (new),
-  `.review-journal.json` (new), `.github/workflows/review-journal.yml`
-  (new), `pyproject.toml`, `AGENTS.md`.
+- **Scope:** PR #2, installs `pr-review-journal` `v0.1.0` from
+  `loganrooks/pr-review-journal` via the on-demand pattern.
+  7 files in the final PR: `.gitignore`, `.review-journal.version`
+  (new), `.review-journal.json` (new),
+  `.github/workflows/review-journal.yml` (new), `pyproject.toml`,
+  `AGENTS.md`, and this review artifact itself
+  (`docs/decisions/reviews/2-pr-review-journal-install.md`).
+  Substance was in commit `8edef34`; this artifact landed in `c55e409`
+  (added per WORKFLOW.md §5 stage-review-checkpoint discipline).
 - **Related artifacts:** [montage_cli#21](https://github.com/loganrooks/montage_cli/pull/21)
   — first consumer of the same install pattern (just merged).
   `loganrooks/pr-review-journal v0.1.0` — the upstream tool tag.
