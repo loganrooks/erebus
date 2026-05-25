@@ -692,8 +692,9 @@ Conventional-Commits label (post-bootstrap reference): `ci: add test-e2e workflo
 ### Step 3.8 — README
 
 Public-facing. Minimal install + example + disclaimer + link to
-`PROJECT.md`. See `docs/README_TEMPLATE.md` (or generate from
-PROJECT.md highlights).
+`PROJECT.md`. Generate from PROJECT.md highlights (project name,
+status, install, quick example, disclaimer, contributing pointer
+to AGENTS.md, license).
 
 Conventional-Commits label (post-bootstrap reference): `docs: add public README`.
 
