@@ -732,3 +732,9 @@ declarations.
   read prior passes from `docs/decisions/archive/` before
   producing new findings. Updated REPO_SETUP.md §3.5 doc list and
   §8 done-list to use the same path-abstract form.
+- Finding 20: resolved per 0005 §Finding-20; rewrote REPO_SETUP.md
+  §3.2 to unconditionally generate the MIT LICENSE via
+  `gh api /licenses/mit`. The prior "if it isn't there" conditional
+  was inherited from a flow that passed `--license=mit` to
+  `gh repo create`; §2 now explicitly omits that flag, so the
+  conditional was an always-taken branch.
