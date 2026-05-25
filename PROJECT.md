@@ -129,7 +129,14 @@ Verification surface, Phase 1:
    `erebus/stages/` and callable in isolation (REQ-ARCH-002).
 4. `erebus lab apply --stage <name> --params <json>
    --clip <30s-pair>` works for every stage.
-5. All Phase-1 TDD anchors green; CI green on Ubuntu and macOS.
+5. All Phase-1 TDD anchors green. CI matrix coverage:
+   `test-unit-meta` runs on Ubuntu and macOS; `test-integration`
+   and `test-e2e` run on Ubuntu only. macOS-specific concerns
+   (Homebrew ffmpeg codec set, AVFoundation hardware encoders per
+   REQ-ENCODE-003) are tracked manually by Logan when iterating
+   locally on macOS; if a macOS regression surfaces,
+   `test-integration` may be promoted to a matrix build at that
+   point.
 
 ### Phase 2 — Preset expansion + tunability
 

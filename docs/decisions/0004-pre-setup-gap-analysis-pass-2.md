@@ -758,3 +758,9 @@ declarations.
   `find "$DIR" -name "${PR}-*" -type f -size +0c`, matching any
   extension (WORKFLOW.md §5 permits both `.json` and `.md`) and
   enforcing the previously-unimplemented "non-empty" qualifier.
+- Finding 14: resolved per 0005 §Finding-14; rewrote PROJECT.md §4
+  Phase-1 verification point 5 to describe the actual CI matrix
+  (unit/meta on Ubuntu+macOS; integration/e2e on Ubuntu only)
+  rather than implying full cross-platform coverage. macOS-specific
+  concerns flagged as manual-tracking with a documented
+  promote-to-matrix trigger.
