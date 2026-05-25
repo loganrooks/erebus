@@ -1,0 +1,44 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-toml
+      - id: check-added-large-files
+        args: [--maxkb=500]
+      - id: check-merge-conflict
+      - id: detect-private-key
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.5.0
+    hooks:
+      - id: ruff-check
+        args: [--fix]
+      - id: ruff-format
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.10.0
+    hooks:
+      - id: mypy
+        additional_dependencies:
+          - pydantic >= 2.7
+          - typer >= 0.12
+          - pytest >= 8.0   # for conftest.py's TYPE_CHECKING import
+        args: [--strict]
+
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.18.4
+    hooks:
+      - id: gitleaks
+        stages: [pre-commit, manual]
+
+  - repo: local
+    hooks:
+      - id: pytest-fast
+        name: pytest (unit + meta, phase1 + meta scope)
+        entry: uv run pytest tests/unit tests/meta -m "phase1 or meta" --quiet --no-header
+        language: system
+        pass_filenames: false
+        stages: [pre-commit]
