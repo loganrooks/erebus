@@ -1,7 +1,9 @@
 # 0008 — Pre-setup gap analysis (pass 4)
 
-- **Status:** proposed
+- **Status:** resolved
 - **Date:** 2026-05-24
+- **Resolved:** 2026-05-24 (4 of 20 findings; 16 deferred — see
+  closing note)
 - **Author(s):** Claude Code (claude-opus-4-7) — fourth-pass audit
 - **Related ADRs:** archive/0001 (pass-1 audit, resolved),
   0002 (pass-1 resolution plan),
@@ -9,7 +11,8 @@
   archive/0004 (pass-2 audit, resolved),
   0005 (pass-2 resolution plan),
   archive/0006 (pass-3 audit, resolved),
-  0007 (pass-3 resolution plan)
+  0007 (pass-3 resolution plan),
+  0009 (pass-4 resolution plan)
 - **Related REQ-IDs:** (none — this is meta)
 - **Related anchors:** (none — this is meta)
 
@@ -525,3 +528,29 @@ forward-tense risks; no item blocks Goal 0 from starting.
   lands and Phase-1 coding begins. Resolves the apparent
   contradiction between AGENTS.md's "one line per turn" and the
   current empty NOTES.md after multiple audit cycles.
+
+## Deferred findings (16)
+
+Per 0009 §Decision summary, the following findings were
+intentionally deferred to the Phase-1 prep backlog (joining 9
+from 0005 and 9 from 0007 — combined backlog: 34 items). They
+are real but do not block Goal-0; most are Phase-1 design
+questions or bootstrap-execution tweaks that need to be decided
+at the moment of bootstrap, not pre-emptively.
+
+- **SHOULD (10):** 2 (yt-dlp host/venv resolution), 4 (lowpass
+  biquad vs 20 dB anchor), 5 (stale pre-commit hook versions —
+  bump at bootstrap), 6 (cyberpsycho fonts provenance —
+  Phase-1 prereq), 7 (REQ-INGEST-001 mp4 vs REQ-INGEST-005
+  selector), 8 (REQ-CAPTION-003 fade implementation), 9 (REQ-
+  OBS-001 stdout/stderr convention), 10 (SHOULD-tag REQs with
+  MUST/SHALL body), 11 (uv/gh floors at preflight), 12
+  (hatchling unpinned).
+- **CONSIDER (6):** 14, 15, 16 (Phase-1 anchor refinements
+  for mix loudness, byte-identity, concat lossless), 17 (REQ-
+  INTEG-001 forward reference), 18 (review-artifact UX), 19
+  (bootstrap CI-red recovery flow).
+
+Combined Phase-1 prep backlog after this PR: **34 items** (9 +
+9 + 16). Track in `NOTES.md` (post-Goal-0) or as GitHub issues
+once the repo is public.
