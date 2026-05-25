@@ -769,3 +769,9 @@ declarations.
   the ambiguous `hold_ms + fade_ms` to the explicit
   `fade_in_ms + hold_ms + fade_out_ms` so the implementer knows
   exactly which preset fields contribute.
+- Finding 22: resolved per 0005 §Finding-22; added an "Obtaining
+  lab clips" subsection to PROJECT.md §9 documenting that the
+  reference clips are gitignored (per REQ-SEC-006) and specifying
+  the missing-clip protocol — skip verification, log to NOTES.md,
+  flag in PR description — so the agent has a documented graceful
+  fallback instead of inventing a substitute.

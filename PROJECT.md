@@ -390,6 +390,30 @@ erebus lab render --preset cyberpsycho --duration 30 \
 Output filenames are deterministic from `(timestamp, stage,
 params-hash)`. `lab/outputs/` is gitignored.
 
+### Obtaining lab clips
+
+The reference clips (`lab/clips/cyberpsycho_30s.mp4`,
+`lab/clips/synthwave_30s.opus`) are not distributable and not in
+the repository — REQ-SEC-006 requires fixtures to have explicit
+provenance and these have neither rights clearance nor a synthetic
+generator. Logan maintains them locally.
+
+If an agent needs them and they are absent:
+
+- The agent SHALL NOT attempt to download or generate substitutes
+  (a synthetic substitute would not match Logan's lab-aesthetic
+  baseline; an internet download would violate REQ-SEC-006).
+- The agent SHALL log a note in `NOTES.md` describing what lab
+  verification was skipped and why (e.g. `2026-NN-NN: lab
+  verification skipped, missing lab/clips/cyberpsycho_30s.mp4`).
+- The agent SHALL flag the missing-clip status in the PR
+  description so the cross-vendor reviewer knows lab verification
+  was not performed (the stage-review check covers this).
+
+This pattern keeps the lab honest: a PR that should have been lab-
+verified but wasn't is visibly flagged rather than silently
+passing.
+
 ## 10. Song detection (Phase 4)
 
 For `youtube.com/watch?v=_LC-QY2yros`:
