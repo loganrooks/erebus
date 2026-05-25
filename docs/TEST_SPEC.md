@@ -278,8 +278,9 @@ function tagged `@pytest.mark.anchor("...")` has a matching anchor here.
   intervals.
 - **Assertions:**
   - The expression contains exactly three `between(...)` clauses.
-  - The first clause's interval starts at 0 and ends at hold_ms +
-    fade_ms after track 1's start.
+  - The first clause's interval starts at 0 and ends at
+    `fade_in_ms + hold_ms + fade_out_ms` after track 1's start
+    (i.e. the total visible duration of one caption envelope).
   - The second clause starts at 100 (= duration of track 1).
   - The third starts at 300 (= 100 + 200).
 - **Anti-tautology:** Wrong arithmetic on track boundaries would

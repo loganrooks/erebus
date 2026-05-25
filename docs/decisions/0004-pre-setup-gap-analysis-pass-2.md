@@ -764,3 +764,8 @@ declarations.
   rather than implying full cross-platform coverage. macOS-specific
   concerns flagged as manual-tracking with a documented
   promote-to-matrix trigger.
+- Finding 17: resolved per 0005 §Finding-17; rewrote the first-clause
+  arithmetic in `test_caption_enable_expression_is_generated` from
+  the ambiguous `hold_ms + fade_ms` to the explicit
+  `fade_in_ms + hold_ms + fade_out_ms` so the implementer knows
+  exactly which preset fields contribute.
