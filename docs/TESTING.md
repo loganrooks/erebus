@@ -223,8 +223,8 @@ uv run pytest -m "phase1 or meta" --run-e2e
 ```
 
 CI runs the same commands. Pre-commit runs `pytest tests/unit
-tests/meta -m phase1 --quiet --no-header` on every commit; the
-slower layers run only in CI.
+tests/meta -m "phase1 or meta" --quiet --no-header` on every commit;
+the slower layers run only in CI.
 
 ## 8. Property-based testing
 

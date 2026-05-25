@@ -718,3 +718,6 @@ declarations.
   `tests/conftest.py`; replaced with a docstring-only module so
   `mypy --strict` has nothing to flag. Finding 23 will add a
   type-annotated `pytest_addoption` to the same file.
+- Finding 12: resolved per 0005 §Finding-12; aligned TESTING.md
+  §7's pre-commit description to use `-m "phase1 or meta"`,
+  matching WORKFLOW.md §2 and REPO_SETUP.md §3.4.
