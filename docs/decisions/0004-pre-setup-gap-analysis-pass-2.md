@@ -713,3 +713,8 @@ declarations.
   3.N's closing `Commit:` label to `Section of bootstrap commit:`
   so the contradiction with §2's single `git add . && git commit`
   is gone.
+- Finding 3: resolved per 0005 §Finding-3; dropped the untyped
+  `pytest_configure(config):` stub from REPO_SETUP.md §3.6.1
+  `tests/conftest.py`; replaced with a docstring-only module so
+  `mypy --strict` has nothing to flag. Finding 23 will add a
+  type-annotated `pytest_addoption` to the same file.

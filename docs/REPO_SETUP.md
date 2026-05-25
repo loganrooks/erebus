@@ -347,15 +347,11 @@ that passes immediately:
 `tests/conftest.py`:
 
 ```python
-"""Pytest configuration for the erebus test suite."""
+"""Pytest configuration for the erebus test suite.
 
-
-def pytest_configure(config):
-    """Reserved for future runtime config.
-
-    Markers are declared in pyproject.toml [tool.pytest.ini_options];
-    this hook exists so future shared configuration has a home.
-    """
+Markers are declared in pyproject.toml [tool.pytest.ini_options];
+shared fixtures and hooks go here as they are introduced.
+"""
 ```
 
 `tests/meta/test_anchors.py`:
