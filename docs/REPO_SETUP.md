@@ -92,11 +92,11 @@ file in §3.1 through §3.8 lives in that one bootstrap commit.
 Subsequent changes after the bootstrap land as separate commits per
 the normal workflow.
 
-Each step's closing line shows the Conventional-Commits-style label
-that *would* be appropriate if the section were a standalone
-commit. The labels exist to teach the commit-message style for
-post-bootstrap work; they describe the section's contents, not a
-literal commit boundary.
+Each step closes with a "Conventional-Commits label (post-bootstrap
+reference)" line. The label is the Conventional-Commits message
+style a post-bootstrap commit touching the same content would use,
+offered as a teaching example. It is NOT a commit boundary for
+the bootstrap; the bootstrap is a single `git commit`.
 
 ### Step 3.1 — `.gitignore`
 
@@ -147,7 +147,7 @@ htmlcov/
 CLAUDE.local.md
 ```
 
-Section of bootstrap commit: `chore: add .gitignore`.
+Conventional-Commits label (post-bootstrap reference): `chore: add .gitignore`.
 
 ### Step 3.2 — `LICENSE`
 
@@ -164,7 +164,7 @@ a write conflict with this locally-generated LICENSE when
 `--source=.` is a non-empty repo. The locally-generated file is
 the canonical one.
 
-Section of bootstrap commit: `chore: add MIT license`.
+Conventional-Commits label (post-bootstrap reference): `chore: add MIT license`.
 
 ### Step 3.3 — `pyproject.toml`
 
@@ -236,7 +236,7 @@ Exact versions for both runtime and dev dependencies are recorded in
 `uv.lock`, which `uv sync` writes on first install. Commit `uv.lock`
 on the same step as `pyproject.toml`.
 
-Section of bootstrap commit: `chore: add pyproject.toml with Python 3.11 + uv config`.
+Conventional-Commits label (post-bootstrap reference): `chore: add pyproject.toml with Python 3.11 + uv config`.
 
 ### Step 3.4 — `.pre-commit-config.yaml`
 
@@ -287,7 +287,7 @@ repos:
         stages: [pre-commit]
 ```
 
-Section of bootstrap commit: `chore: add pre-commit config`.
+Conventional-Commits label (post-bootstrap reference): `chore: add pre-commit config`.
 
 Then install the hooks: `pre-commit install`.
 
@@ -315,7 +315,7 @@ respective sections of the project documentation):
 - `README.md`
 - `NOTES.md` (empty except for a header)
 
-Section of bootstrap commit: `docs: add full project documentation set`.
+Conventional-Commits label (post-bootstrap reference): `docs: add full project documentation set`.
 
 ### Step 3.6 — Source tree skeleton
 
@@ -353,7 +353,7 @@ touch scripts/generate_fixtures.py
 Each `.py` file gets a minimal stub: a module docstring and any
 NotImplementedError placeholder needed to satisfy mypy strict mode.
 
-Section of bootstrap commit: `chore: add source tree skeleton`.
+Conventional-Commits label (post-bootstrap reference): `chore: add source tree skeleton`.
 
 ### Step 3.6.1 — Bootstrap test set
 
@@ -502,7 +502,7 @@ stage's red-green-refactor PR cycle. The meta-tests above only
 check that *existing* anchors are properly cross-referenced;
 pending anchors are normal until their feature PR lands.
 
-Section of bootstrap commit: `chore: add bootstrap test set`.
+Conventional-Commits label (post-bootstrap reference): `chore: add bootstrap test set`.
 
 ### Step 3.7 — GitHub Actions workflows
 
@@ -611,7 +611,7 @@ jobs:
           fi
 ```
 
-Section of bootstrap commit: `ci: add main workflow with lint, type, test, gitleaks, docs jobs`.
+Conventional-Commits label (post-bootstrap reference): `ci: add main workflow with lint, type, test, gitleaks, docs jobs`.
 
 The end-to-end job is split into its own workflow so its
 path-filter trigger works correctly on `pull_request` events.
@@ -662,7 +662,7 @@ The earlier inline `test-e2e` job in `ci.yml` used
 the conditional never matched and the job silently skipped. The
 split workflow corrects that.
 
-Section of bootstrap commit: `ci: add test-e2e workflow with paths-filter trigger`.
+Conventional-Commits label (post-bootstrap reference): `ci: add test-e2e workflow with paths-filter trigger`.
 
 ### Step 3.8 — README
 
@@ -670,7 +670,7 @@ Public-facing. Minimal install + example + disclaimer + link to
 `PROJECT.md`. See `docs/README_TEMPLATE.md` (or generate from
 PROJECT.md highlights).
 
-Section of bootstrap commit: `docs: add public README`.
+Conventional-Commits label (post-bootstrap reference): `docs: add public README`.
 
 ## 4. Branch protection
 

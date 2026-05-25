@@ -512,3 +512,9 @@ forward-tense risks; no item blocks Goal 0 from starting.
   `docs/review-prompts/pre-setup-audit.md` so future passes use
   the plural form by default. All ADRs now match TEMPLATE.md and
   the eventual `test_adr_files_match_template` anchor.
+- Finding 13: resolved per 0009 §Finding-13; replaced all 9
+  `Section of bootstrap commit:` labels in REPO_SETUP.md §3 with
+  `Conventional-Commits label (post-bootstrap reference):` and
+  rewrote §3's intro paragraph to make the teaching-example
+  framing unambiguous. The labels no longer look like commit
+  subjects.
