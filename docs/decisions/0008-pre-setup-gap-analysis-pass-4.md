@@ -518,3 +518,10 @@ forward-tense risks; no item blocks Goal 0 from starting.
   rewrote §3's intro paragraph to make the teaching-example
   framing unambiguous. The labels no longer look like commit
   subjects.
+- Finding 20: resolved per 0009 §Finding-20; added an exemption
+  paragraph to AGENTS.md §"The journal (NOTES.md)" stating that
+  the pre-Goal-0 audit-resolution cycle is documented in ADRs and
+  commits, not NOTES.md; the journal rule activates once Goal-0
+  lands and Phase-1 coding begins. Resolves the apparent
+  contradiction between AGENTS.md's "one line per turn" and the
+  current empty NOTES.md after multiple audit cycles.

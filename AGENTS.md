@@ -165,6 +165,14 @@ Format: ISO-8601 timestamp `|` stage `|` what changed `|` lab clip or
 anchor result. This is the audit trail that makes blockers
 recoverable; see WORKFLOW.md §"Recovery".
 
+**Exemption:** the pre-Goal-0 audit-resolution cycle (iterative
+pre-setup gap-analysis ADRs in `docs/decisions/` plus their
+per-finding commits) is exempt from this rule. Those ADRs and
+their commit log already document every turn at a useful
+granularity; duplicating into NOTES.md would add noise without
+information. The journal rule applies once Goal 0 lands and
+Phase-1 coding work begins.
+
 ## Self-audit before setup work (Goal 0 only)
 
 If you are operating under Goal 0, your **first action** is the
