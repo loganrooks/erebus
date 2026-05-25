@@ -1,3 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.eggs/
+dist/
+build/
+
+# uv
+.uv-cache/
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
 # OS
 .DS_Store
 Thumbs.db
+
+# Project: never commit
+cache/
+*.env
+.env*
+!.env.example
+
+# Lab: clips are not distributed; outputs are scratch
+lab/clips/
+lab/outputs/
+!lab/clips/.gitkeep
+!lab/outputs/.gitkeep
+
+# Tests
+.coverage
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+
+# Claude Code / local agent state
+.claude/state/
+CLAUDE.local.md
