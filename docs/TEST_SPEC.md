@@ -570,6 +570,29 @@ function tagged `@pytest.mark.anchor("...")` has a matching anchor here.
   sections would fail; an ADR genuinely matching the template
   passes.
 
+### test_fixtures_reproducible_from_generator — REQ-SEC-006
+
+- **Where:** `tests/meta/test_fixtures_provenance.py`
+- **Inputs:** The contents of `tests/fixtures/` plus the output of
+  `scripts/generate_fixtures.py` run against a pytest tmpdir.
+- **Behaviour:** Every committed fixture is byte-equal to what the
+  generator produces, and the generator produces nothing the
+  committed set lacks. This enforces REQ-SEC-006 (synthetic-only
+  fixtures) mechanically; a hand-edited or third-party-sourced
+  fixture file will fail.
+- **Assertions:**
+  - For every file under `tests/fixtures/`, an identically-named
+    file exists in the generator's tmpdir output.
+  - Their SHA-256 hashes are equal.
+  - The set of relative paths in `tests/fixtures/` is exactly the
+    set written by the generator (no orphans, no extras).
+- **Anti-tautology:** Skipping the generator step and just
+  comparing fixtures to themselves trivially passes — the
+  generator invocation is what makes the assertion falsifiable.
+  At Goal 0 the fixture directory is empty and the generator
+  produces nothing, so the test passes vacuously; the assertion
+  activates as fixtures are added in Phase 1.
+
 ---
 
 ## End-to-end integration

@@ -703,4 +703,7 @@ declarations.
 
 ## Resolution log
 
-(Left empty for the human to fill in as items are addressed.)
+- Finding 1: resolved per 0005 §Finding-1; added meta-anchor
+  `test_fixtures_reproducible_from_generator` to TEST_SPEC.md
+  citing REQ-SEC-006. Vacuously passes at Goal-0 (empty fixture
+  dir); activates as Phase-1 fixtures are added.
