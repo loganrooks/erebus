@@ -74,8 +74,18 @@ LICENSE file produced by step 3.2 before the bootstrap commit.
 
 ## 3. Bootstrap files
 
-The initial commit creates these files in this order. Each step is a
-separate commit on `main` so the history reads as a setup walkthrough.
+The bootstrap commit (created in §2 with `git add . && git commit`)
+contains the files described in the steps below. The per-step
+structure is a content walkthrough, not separate commits — every
+file in §3.1 through §3.8 lives in that one bootstrap commit.
+Subsequent changes after the bootstrap land as separate commits per
+the normal workflow.
+
+Each step's closing line shows the Conventional-Commits-style label
+that *would* be appropriate if the section were a standalone
+commit. The labels exist to teach the commit-message style for
+post-bootstrap work; they describe the section's contents, not a
+literal commit boundary.
 
 ### Step 3.1 — `.gitignore`
 
@@ -126,7 +136,7 @@ htmlcov/
 CLAUDE.local.md
 ```
 
-Commit: `chore: add .gitignore`.
+Section of bootstrap commit: `chore: add .gitignore`.
 
 ### Step 3.2 — `LICENSE`
 
@@ -139,7 +149,7 @@ sed -i.bak "s/\[year\]/$(date +%Y)/; s/\[fullname\]/Logan Rooks/" LICENSE
 rm LICENSE.bak
 ```
 
-Commit: `chore: add MIT license`.
+Section of bootstrap commit: `chore: add MIT license`.
 
 ### Step 3.3 — `pyproject.toml`
 
@@ -211,7 +221,7 @@ Exact versions for both runtime and dev dependencies are recorded in
 `uv.lock`, which `uv sync` writes on first install. Commit `uv.lock`
 on the same step as `pyproject.toml`.
 
-Commit: `chore: add pyproject.toml with Python 3.11 + uv config`.
+Section of bootstrap commit: `chore: add pyproject.toml with Python 3.11 + uv config`.
 
 ### Step 3.4 — `.pre-commit-config.yaml`
 
@@ -261,7 +271,7 @@ repos:
         stages: [pre-commit]
 ```
 
-Commit: `chore: add pre-commit config`.
+Section of bootstrap commit: `chore: add pre-commit config`.
 
 Then install the hooks: `pre-commit install`.
 
@@ -288,7 +298,7 @@ respective sections of the project documentation):
 - `README.md`
 - `NOTES.md` (empty except for a header)
 
-Commit: `docs: add full project documentation set`.
+Section of bootstrap commit: `docs: add full project documentation set`.
 
 ### Step 3.6 — Source tree skeleton
 
@@ -326,7 +336,7 @@ touch scripts/generate_fixtures.py
 Each `.py` file gets a minimal stub: a module docstring and any
 NotImplementedError placeholder needed to satisfy mypy strict mode.
 
-Commit: `chore: add source tree skeleton`.
+Section of bootstrap commit: `chore: add source tree skeleton`.
 
 ### Step 3.6.1 — Bootstrap test set
 
@@ -436,7 +446,7 @@ stage's red-green-refactor PR cycle. The meta-tests above only
 check that *existing* anchors are properly cross-referenced;
 pending anchors are normal until their feature PR lands.
 
-Commit: `chore: add bootstrap test set`.
+Section of bootstrap commit: `chore: add bootstrap test set`.
 
 ### Step 3.7 — GitHub Actions workflows
 
@@ -556,7 +566,7 @@ jobs:
           fi
 ```
 
-Commit: `ci: add main workflow with lint, type, test, gitleaks, docs jobs`.
+Section of bootstrap commit: `ci: add main workflow with lint, type, test, gitleaks, docs jobs`.
 
 ### Step 3.8 — README
 
@@ -564,7 +574,7 @@ Public-facing. Minimal install + example + disclaimer + link to
 `PROJECT.md`. See `docs/README_TEMPLATE.md` (or generate from
 PROJECT.md highlights).
 
-Commit: `docs: add public README`.
+Section of bootstrap commit: `docs: add public README`.
 
 ## 4. Branch protection
 

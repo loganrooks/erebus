@@ -707,3 +707,9 @@ declarations.
   `test_fixtures_reproducible_from_generator` to TEST_SPEC.md
   citing REQ-SEC-006. Vacuously passes at Goal-0 (empty fixture
   dir); activates as Phase-1 fixtures are added.
+- Finding 2: resolved per 0005 §Finding-2; rewrote REPO_SETUP.md
+  §3 intro to describe the section as a content walkthrough of
+  the §2 bootstrap commit (auditor option b); changed each Step
+  3.N's closing `Commit:` label to `Section of bootstrap commit:`
+  so the contradiction with §2's single `git add . && git commit`
+  is gone.
