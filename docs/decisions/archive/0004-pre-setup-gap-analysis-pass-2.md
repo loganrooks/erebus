@@ -1,10 +1,13 @@
 # 0004 — Pre-setup gap analysis (pass 2)
 
-- **Status:** proposed
+- **Status:** resolved
 - **Date:** 2026-05-24
+- **Resolved:** 2026-05-24 (14 of 23 findings; 9 deferred — see
+  closing note)
 - **Author:** Claude Code (claude-opus-4-7) — second-pass audit
 - **Related ADRs:** archive/0001 (pass-1 audit, resolved),
-  0002 (resolution plan), 0003 (name + license)
+  0002 (pass-1 resolution plan), 0003 (name + license),
+  0005 (pass-2 resolution plan)
 - **Related REQ-IDs:** (none — this is meta)
 - **Related anchors:** (none — this is meta)
 
@@ -782,3 +785,25 @@ declarations.
   import pattern so the file stays mypy-strict-clean. Composes
   with Finding 3's earlier conftest cleanup; the file is now
   exactly what the plan's combined-result example showed.
+
+## Deferred findings (9)
+
+Per 0005 §Decision summary, the following findings were
+intentionally deferred to a Phase-1 prep pass. They are real but
+do not block Goal-0 setup; each benefits from being decided with
+implementation context rather than pre-emptively. See 0005
+§"Deferred findings" for per-item rationale.
+
+- **SHOULD-resolve (7):** 4 (output duration semantics),
+  6 (loudness measurement isolation),
+  7 (CLI-vs-Python byte-equality → semantic equivalence),
+  8 (`erebus.stages.render` vs `erebus.render` orchestrator API),
+  9 (`loudnorm` parameters into preset / schema),
+  10 (REQ-CLI-002 cap implementation against concat demuxer),
+  16 (REQ-ENCODE-002 framerate normalization placement).
+- **CONSIDER (2):** 18 (LAB-002 filename millisecond resolution),
+  21 (SHA-pin GitHub Actions).
+
+These should be tracked as a "Phase-1 prep backlog" in `NOTES.md`
+or as GitHub issues once the repo is public. They will be the
+input set for the first Phase-1 design pass, not for Goal-0.
