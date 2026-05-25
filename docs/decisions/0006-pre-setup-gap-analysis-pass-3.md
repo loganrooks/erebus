@@ -505,3 +505,9 @@ conditions (no `pyproject.toml`, no `erebus/`, no `tests/`, no
   `additional_dependencies` in REPO_SETUP.md §3.4 so mypy's
   isolated pre-commit env can resolve the conftest's
   TYPE_CHECKING `import pytest`.
+- Finding 2: resolved per 0007 §Finding-2; added a placeholder
+  `tests/integration/test_smoke.py` to REPO_SETUP.md §3.6.1
+  mirroring `tests/unit/test_smoke.py`. `pytest tests/integration
+  -m phase1` now collects one test and exits 0 instead of 5, so the
+  required `test-integration` CI job goes green on the first run
+  on `main`.

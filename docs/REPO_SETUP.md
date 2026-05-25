@@ -477,6 +477,24 @@ def test_smoke() -> None:
     assert True
 ```
 
+`tests/integration/test_smoke.py`:
+
+```python
+"""At least one integration test so pytest collects something at Goal-0.
+
+The real integration anchors land in Phase 1's stage-by-stage PR
+cycle (per docs/TEST_SPEC.md "Integration anchors"). This file may
+be deleted once the first real integration test lands; the
+test-integration CI job needs at least one collected test to pass.
+"""
+import pytest
+
+
+@pytest.mark.phase1
+def test_integration_smoke() -> None:
+    assert True
+```
+
 Phase-1 stage anchors (per `docs/TEST_SPEC.md`) are NOT created at
 Goal 0. They are added during Phase 1 in the RED step of each
 stage's red-green-refactor PR cycle. The meta-tests above only
