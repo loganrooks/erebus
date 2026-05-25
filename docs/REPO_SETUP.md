@@ -128,9 +128,11 @@ cache/
 .env*
 !.env.example
 
-# Lab: clips are not distributed; outputs are scratch
-lab/clips/
-lab/outputs/
+# Lab: clips are not distributed; outputs are scratch.
+# Use wildcard (not bare-directory) so the .gitkeep carve-outs work
+# — git cannot re-include files under an excluded directory.
+lab/clips/*
+lab/outputs/*
 !lab/clips/.gitkeep
 !lab/outputs/.gitkeep
 
@@ -690,8 +692,9 @@ Conventional-Commits label (post-bootstrap reference): `ci: add test-e2e workflo
 ### Step 3.8 — README
 
 Public-facing. Minimal install + example + disclaimer + link to
-`PROJECT.md`. See `docs/README_TEMPLATE.md` (or generate from
-PROJECT.md highlights).
+`PROJECT.md`. Generate from PROJECT.md highlights (project name,
+status, install, quick example, disclaimer, contributing pointer
+to AGENTS.md, license).
 
 Conventional-Commits label (post-bootstrap reference): `docs: add public README`.
 
