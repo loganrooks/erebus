@@ -20,10 +20,22 @@ pre-commit --version   # pre-commit framework
 ffmpeg -version | head -1  # ≥ 6.0
 yt-dlp --version
 
-# Verify yt-dlp meets the declared minimum (REQ-SEC-005).
-# Adjust the version threshold below to whatever pinned-minimum is
-# recorded in pyproject.toml at bootstrap time (placeholder: 2024.07).
-yt-dlp --version | awk -F. '{ if ($1 < 2024 || ($1 == 2024 && $2 < 7)) exit 1 }'
+# Verify yt-dlp meets the declared minimum (REQ-SEC-005). The minimum
+# is read from pyproject.toml [project.dependencies] so there is one
+# source of truth; bumping the floor in pyproject.toml also raises the
+# preflight bar.
+YT_DLP_MIN=$(python3 -c "import tomllib, pathlib; \
+  deps = tomllib.loads(pathlib.Path('pyproject.toml').read_text())['project']['dependencies']; \
+  print(next(d.split('>=')[1].strip() for d in deps if d.startswith('yt-dlp')))")
+yt-dlp --version | awk -v min="$YT_DLP_MIN" '
+  { split($1, v, "."); split(min, m, ".");
+    for (i = 1; i <= 3; i++) {
+      vi = (v[i] == "" ? 0 : v[i]+0);
+      mi = (m[i] == "" ? 0 : m[i]+0);
+      if (vi < mi) exit 1;
+      if (vi > mi) exit 0;
+    }
+  }'
 
 # GitHub auth
 gh auth status         # should show authenticated as loganrooks
@@ -170,6 +182,7 @@ dependencies = [
   "typer >= 0.12",
   "pydantic >= 2.7",
   "rich >= 13.7",
+  "yt-dlp >= 2024.7.16",
 ]
 
 [project.optional-dependencies]
@@ -492,14 +505,13 @@ jobs:
       - uses: astral-sh/setup-uv@v3
       - run: uv python install 3.11
       - run: uv sync --extra dev
-      - name: Install ffmpeg and yt-dlp
+      - name: Install ffmpeg
         run: |
           if [[ "${{ matrix.os }}" == "ubuntu-latest" ]]; then
             sudo apt-get update && sudo apt-get install -y ffmpeg
           else
             brew install ffmpeg
           fi
-          uv pip install yt-dlp
       - run: uv run pytest tests/unit tests/meta -m "phase1 or meta"
 
   test-integration:
@@ -510,7 +522,6 @@ jobs:
       - run: uv python install 3.11
       - run: uv sync --extra dev
       - run: sudo apt-get update && sudo apt-get install -y ffmpeg
-      - run: uv pip install yt-dlp
       - run: uv run pytest tests/integration -m phase1
 
   gitleaks:
@@ -585,7 +596,6 @@ jobs:
       - run: uv python install 3.11
       - run: uv sync --extra dev
       - run: sudo apt-get update && sudo apt-get install -y ffmpeg
-      - run: uv pip install yt-dlp
       - run: uv run pytest tests/e2e -m phase1 --run-e2e
 ```
 

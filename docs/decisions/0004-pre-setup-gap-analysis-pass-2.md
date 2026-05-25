@@ -744,3 +744,12 @@ declarations.
   skipped). Added a new `.github/workflows/test-e2e.yml` with a
   proper `paths:` filter on `pull_request:` plus `workflow_dispatch`
   for ad-hoc runs.
+- Finding 11: resolved per 0005 §Finding-11; added
+  `yt-dlp >= 2024.7.16` to pyproject.toml `[project.dependencies]`
+  so REQ-SEC-005's "minimum declared in pyproject" requirement is
+  satisfied with an actual pin (no longer a placeholder); rewrote
+  REPO_SETUP.md §1 preflight to read the minimum directly from
+  pyproject so there is one source of truth; removed three
+  `uv pip install yt-dlp` lines from CI workflows (base
+  `uv sync --extra dev` now installs yt-dlp via the dependency
+  declaration).
