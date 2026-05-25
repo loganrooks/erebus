@@ -25,9 +25,11 @@ cache/
 .env*
 !.env.example
 
-# Lab: clips are not distributed; outputs are scratch
-lab/clips/
-lab/outputs/
+# Lab: clips are not distributed; outputs are scratch.
+# Use wildcard (not bare-directory) so the .gitkeep carve-outs work
+# — git cannot re-include files under an excluded directory.
+lab/clips/*
+lab/outputs/*
 !lab/clips/.gitkeep
 !lab/outputs/.gitkeep
 
