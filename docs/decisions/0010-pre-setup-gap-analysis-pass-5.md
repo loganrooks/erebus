@@ -306,3 +306,7 @@ Findings below.
   to REPO_SETUP.md §3.6.1, mirroring `tests/integration/test_smoke.py`
   from pass-3 Finding 2. The first PR touching erebus/ will no
   longer hit pytest exit-5 on the test-e2e workflow.
+- Finding 7: resolved; updated the PR template checklist in
+  WORKFLOW.md §3 to match the CI check and the §5 canonical
+  invocation (which writes both `.json` and `.md`). The three
+  voices now agree on `{json,md}`.

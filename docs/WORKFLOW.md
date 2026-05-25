@@ -145,7 +145,8 @@ trigger CI without spam-pinging reviewers. Draft early, ready late.
       `review-artifact-exists`
 - [ ] Lab clip rendered + reviewed: `lab/outputs/<filename>`
 - [ ] Cross-vendor review run; artifact committed at
-      `docs/decisions/reviews/<PR>-*.json`
+      `docs/decisions/reviews/<PR>-*.{json,md}` (canonical
+      invocation in §5 writes both)
 
 ## Out of scope
 
