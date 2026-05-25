@@ -1,0 +1,61 @@
+[project]
+name = "erebus"
+version = "0.0.1"
+description = "Cyberpunk video-mix toolkit."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { file = "LICENSE" }
+authors = [{ name = "Logan Rooks" }]
+dependencies = [
+  "typer >= 0.12",
+  "pydantic >= 2.7",
+  "rich >= 13.7",
+  "yt-dlp >= 2024.7.16",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest >= 8.0",
+  "pytest-cov >= 5.0",
+  "hypothesis >= 6.100",
+  "ruff >= 0.5",
+  "mypy >= 1.10",
+  "pre-commit >= 3.7",
+]
+
+[project.scripts]
+erebus = "erebus.cli:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "N", "S", "C4", "RUF"]
+ignore = ["S101"]  # pytest uses assert
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S105", "S106"]  # tests use fake secrets
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_return_any = true
+warn_unreachable = true
+disallow_untyped_defs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+  "phase1: Phase-1 anchors and tests",
+  "phase2: Phase-2 (deferred)",
+  "phase3: Phase-3 (deferred)",
+  "phase4: Phase-4 (deferred)",
+  "anchor(name): name of the TEST_SPEC.md anchor this test satisfies",
+  "meta: docs-consistency and other meta tests; meta tests should also carry the relevant phase marker",
+]
+addopts = "-ra --strict-markers"
