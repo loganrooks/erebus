@@ -269,6 +269,7 @@ repos:
         additional_dependencies:
           - pydantic >= 2.7
           - typer >= 0.12
+          - pytest >= 8.0   # for conftest.py's TYPE_CHECKING import
         args: [--strict]
 
   - repo: https://github.com/gitleaks/gitleaks

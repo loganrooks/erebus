@@ -500,4 +500,8 @@ conditions (no `pyproject.toml`, no `erebus/`, no `tests/`, no
 
 ## Resolution log
 
-(Left empty for Logan to fill in as items are addressed.)
+- Finding 1: resolved per 0007 §Finding-1; added
+  `pytest >= 8.0` to the `.pre-commit-config.yaml` mypy hook's
+  `additional_dependencies` in REPO_SETUP.md §3.4 so mypy's
+  isolated pre-commit env can resolve the conftest's
+  TYPE_CHECKING `import pytest`.
