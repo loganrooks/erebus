@@ -518,3 +518,12 @@ conditions (no `pyproject.toml`, no `erebus/`, no `tests/`, no
   read was an ordering bug introduced in pass-2 Finding 11. Post-
   bootstrap, `uv sync` enforces the pyproject pin and is
   authoritative.
+- Finding 6: resolved per 0007 §Finding-6; added two new anchors
+  to TEST_SPEC.md meta section (`test_every_must_req_has_anchor_citation`,
+  `test_every_anchor_cites_valid_req`) matching the bootstrap
+  function names exactly; tagged the two bootstrap functions in
+  REPO_SETUP.md §3.6.1 with `@pytest.mark.anchor("...")`. Anchor
+  stability preserved (no renames); the broader Phase-1 anchors
+  (`test_every_req_id_has_test_anchor`,
+  `test_every_anchor_has_test_function`) remain planned-but-not-
+  yet-implemented per the lifecycle pattern in TESTING.md §3.

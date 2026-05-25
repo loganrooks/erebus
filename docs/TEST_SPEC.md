@@ -541,6 +541,37 @@ function tagged `@pytest.mark.anchor("...")` has a matching anchor here.
 - **Anti-tautology:** Removing a test for an anchor or skipping
   an anchor fails CI.
 
+### test_every_must_req_has_anchor_citation — REQ-DOC-001
+
+- **Where:** `tests/meta/test_anchors.py`
+- **Inputs:** Parsed `REQUIREMENTS.md` MUST headings and parsed
+  `TEST_SPEC.md` anchor REQ-ID citations.
+- **Behaviour:** Every MUST requirement is cited by at least one
+  anchor in `TEST_SPEC.md`. This is the bootstrap-minimal
+  coverage check that ships at Goal 0; the broader
+  `test_every_req_id_has_test_anchor` (covering all REQs, not just
+  MUSTs) is Phase-1 work.
+- **Assertions:**
+  - `MUST_REQ_IDs - REQ_IDs_cited_by_any_anchor == set()`.
+- **Anti-tautology:** Adding a new MUST REQ without an anchor
+  fails CI. (Verified by the resolved pass-1 audit: the addition
+  of REQ-SEC-006 caught and resolved by this exact check.)
+
+### test_every_anchor_cites_valid_req — REQ-DOC-001
+
+- **Where:** `tests/meta/test_anchors.py`
+- **Inputs:** Parsed `TEST_SPEC.md` anchor REQ-ID citations and
+  parsed `REQUIREMENTS.md` REQ-IDs.
+- **Behaviour:** Every REQ-ID cited by an anchor exists as a
+  defined REQ in `REQUIREMENTS.md`. Inverse direction of
+  `test_every_must_req_has_anchor_citation`.
+- **Assertions:**
+  - For each anchor in TEST_SPEC, every cited REQ-ID appears as a
+    defined `### REQ-...` heading in REQUIREMENTS.md.
+  - An anchor with an empty citation list fails.
+- **Anti-tautology:** A typo in an anchor's REQ citation (e.g.
+  `REQ-MIX-006` when no such REQ exists) fails.
+
 ### test_readme_examples_parse — REQ-DOC-002
 
 - **Where:** `tests/meta/test_readme.py`

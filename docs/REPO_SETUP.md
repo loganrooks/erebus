@@ -418,6 +418,7 @@ def _read(p: Path) -> str:
     return p.read_text(encoding="utf-8")
 
 
+@pytest.mark.anchor("test_every_must_req_has_anchor_citation")
 @pytest.mark.meta
 @pytest.mark.phase1
 def test_every_must_req_has_anchor_citation() -> None:
@@ -432,6 +433,7 @@ def test_every_must_req_has_anchor_citation() -> None:
     assert not missing, f"MUST REQs without anchor: {sorted(missing)}"
 
 
+@pytest.mark.anchor("test_every_anchor_cites_valid_req")
 @pytest.mark.meta
 @pytest.mark.phase1
 def test_every_anchor_cites_valid_req() -> None:
