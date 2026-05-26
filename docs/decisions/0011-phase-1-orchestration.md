@@ -100,7 +100,7 @@ following architecture.
 |---|---|---|---|
 | Orchestrator | Codex CLI under `/goal` | gh, git, ffmpeg, uv, pytest, claude -p | Sequences phase-by-phase work; writes anchor tests; implements stages; opens PRs; writes escalations |
 | Diff reviewer | `@codex review` GitHub bot | n/a (automatic) | Cold-reads each PR; posts findings |
-| Deep reasoner | `claude -p` (Sonnet 4.5 with extended thinking) | invoked by orchestrator with read-only tools | Adjudicates load-bearing decisions (architecture, security, design) when codex emits a `needs-deep-reasoning` escalation |
+| Deep reasoner | `claude -p` (Opus with max reasoning) | invoked by orchestrator with read-only tools | Adjudicates load-bearing decisions (architecture, security, design) when codex emits a `needs-deep-reasoning` escalation |
 | Supervisor / Monitor | Claude Code (separate session, Logan's interactive surface) | escalation-watch skill, pr-review-triage skill, Monitor tool | Watches escalations; triages codex-bot findings; approves and merges PRs when hard preconditions are met; surfaces HUMAN-GATE escalations to Logan |
 | Maintainer | Logan | manual | Resolves HUMAN-GATE escalations; reviews lab clips; tunes the cyberpsycho preset |
 
@@ -258,14 +258,16 @@ The escalation file triggers a paired invocation:
 ```bash
 claude -p "$(cat .planning/auto-execution/escalations/ESCALATION-<ts>.md)" \
   --allowedTools "Read,Grep,Glob,Bash(uv run pytest *),Bash(git diff *)" \
-  --model claude-sonnet-4-7 \
+  --model claude-opus-4-7 \
   --output-format text \
   --max-turns 25 \
   > .planning/auto-execution/escalations/ESCALATION-<ts>-claude-p-response.md
 ```
 
-Sonnet 4.7 is the default; extended thinking is enabled via
-the prompt itself. The response file's content gets appended
+Opus with max reasoning is the default for deep-reasoning
+escalations; the prompt-level instruction to "think deeply
+before responding" engages the model's reasoning surface. The
+response file's content gets appended
 to the original escalation as the `RESOLVED:` line's content.
 The orchestrator resumes when `wait-for-resolution.sh`
 returns.

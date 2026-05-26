@@ -44,7 +44,7 @@ Phase-1 escalations carry a `kind:` field that determines who responds and how:
 |---|---|---|
 | `task-failure` | Supervisor (Claude monitor) | Triage; may push fix or escalate further |
 | `human-gate-lab-clip` | Logan | Plays clip; writes RESOLVED with approve / tune / reject |
-| `needs-deep-reasoning` | Supervisor invokes `claude -p` (Sonnet 4.7 + extended thinking) | Response file referenced in RESOLVED line |
+| `needs-deep-reasoning` | Supervisor invokes `claude -p` (Opus + max reasoning) | Response file referenced in RESOLVED line |
 | `state-mismatch` | Supervisor | Reconciles STATE.md with workspace reality |
 | `monitor-merge-blocked` | Either supervisor or Logan | Supervisor first; escalates to Logan if security/scope-related |
 | `creative-direction` | Logan | Cyberpsycho preset tuning, visualizer aesthetics |

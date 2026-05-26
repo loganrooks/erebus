@@ -130,9 +130,9 @@ will resume you with a `RESOLVED:` line.
 When you hit an architectural decision you don't have strong
 evidence to settle, emit an escalation with
 `kind: needs-deep-reasoning`. The supervisor will invoke
-`claude -p` with Sonnet 4.7 + extended thinking on the
-escalation file. Their response appended to the escalation
-becomes your `RESOLVED:` payload.
+`claude -p` with Opus + max reasoning on the escalation file.
+Their response appended to the escalation becomes your
+`RESOLVED:` payload.
 
 Concrete invocation pattern (you may run this yourself if the
 supervisor session is unavailable):
@@ -140,7 +140,7 @@ supervisor session is unavailable):
 ```bash
 claude -p "$(cat .planning/auto-execution/escalations/ESCALATION-<ts>.md)" \
   --allowedTools "Read,Grep,Glob,Bash(uv run pytest *),Bash(git diff *)" \
-  --model claude-sonnet-4-7 \
+  --model claude-opus-4-7 \
   --output-format text \
   --max-turns 25 \
   > .planning/auto-execution/escalations/ESCALATION-<ts>-claude-p-response.md
