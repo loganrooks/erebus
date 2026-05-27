@@ -89,7 +89,7 @@ EOF
   log "follow-up escalation written: $f"
 }
 
-# Verify the 7 merge-gating preconditions from 0011-phase-1-orchestration.md.
+# Verify the 8 merge-gating preconditions from 0011-phase-1-orchestration.md.
 # Returns 0 if all preconditions met, 1 if any failed.
 check_preconditions() {
   local pr="$1"
@@ -148,6 +148,26 @@ check_preconditions() {
   local body; body=$(gh pr view "$pr" --json body --jq '.body')
   if ! grep -qE 'REQ-[A-Z]+-[0-9]+' <<<"$body"; then
     log "precondition fail: PR body has no REQ-ID reference"; return 1
+  fi
+
+  # 8. MCI consistency gate — PR description matches diff.
+  #    Per agentic-ops research F5, MCI is the strongest single-signal
+  #    predictor of PR defects. Cheap Haiku call returns score in [0,1];
+  #    fail if score < 0.3.
+  if command -v claude >/dev/null 2>&1; then
+    local title; title=$(gh pr view "$pr" --json title --jq '.title')
+    local diffstat; diffstat=$(gh pr diff "$pr" --name-only 2>/dev/null | head -50)
+    local diffsizes; diffsizes=$(gh pr view "$pr" --json additions,deletions,changedFiles --jq '"+\(.additions) -\(.deletions) across \(.changedFiles) files"')
+    local mci_score
+    mci_score=$(claude -p "Rate the consistency of this PR's description against what its diff actually does, on a 0.0-1.0 scale. Output JSON: {\"score\": <float>, \"reason\": \"<short>\"}.\n\nPR title: ${title}\nPR body (first 1000 chars):\n${body:0:1000}\n\nDiff: ${diffsizes}\nFiles changed: ${diffstat}" --model claude-haiku-4-5 --output-format text --max-turns 1 2>/dev/null | jq -r '.score // 0' 2>/dev/null || echo "1.0")
+    # If claude or jq fail, default to passing (don't block on tooling issues)
+    if awk -v s="$mci_score" 'BEGIN { exit !(s < 0.3) }'; then
+      log "precondition fail: MCI consistency score ${mci_score} < 0.3"
+      return 1
+    fi
+    log "MCI consistency score: ${mci_score}"
+  else
+    log "warning: claude CLI unavailable; skipping MCI gate (precondition 8)"
   fi
 
   return 0

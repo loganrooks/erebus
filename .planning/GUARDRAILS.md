@@ -109,6 +109,37 @@ files are in force; AGENTS.md is the broader contract.
    load-bearing — its absence is an `AWAITING_EXTERNAL`
    state, not a free pass.
 
+## Ground-truth anchoring for the `@codex review` bot
+
+The codex bot reviews diffs against its own internalized priors. When
+the review surface needs to consider deterministic project state (lint
+output, mypy errors, test failure messages), expose that state as
+**structured ground-truth observations posted to the PR as comments**,
+not as agent tool calls.
+
+The rationale, from the AgenticOpsResearch synthesis
+([`system-design/04-ai-failure-mitigation.md` §3.7](https://github.com/loganrooks/Documents/Claude/Projects/AgenticOpsResearch/system-design/04-ai-failure-mitigation.md)):
+"Where deterministic signal exists, the reviewer should *anchor* on it
+rather than invent." The SWE-PRBench result that "more context degrades
+catch rate" suggests that a reviewer with explicit ground-truth
+anchors catches more bugs than one that calls tools to derive the same
+state.
+
+Concrete pattern for Phase-1:
+
+1. CI captures lint / mypy / pytest output as artifacts and posts a
+   summary comment on the PR (the existing CI workflow already does
+   this for failures; we extend it to also post structured success
+   summaries when relevant).
+2. The codex bot's diff-review prompt instructs it to read the
+   ground-truth comment first.
+3. The bot reviews **against** the ground truth (not duplicating its
+   work via tool calls).
+
+This sidesteps the broader question of arbitrary agent tool execution
+on PR-head content (open question OQ-13 in the agentic-ops research
+backlog); the bot reads structured comments, not raw files.
+
 ## Forbidden behaviors
 
 - Running `pytest`, `pip install`, `uv pip install` against

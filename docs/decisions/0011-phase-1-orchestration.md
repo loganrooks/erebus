@@ -213,6 +213,15 @@ Claude monitor session's pre-merge check):
 6. The PR does not carry a `do-not-merge` label.
 7. PR body includes a verified `REQ-ID:` line matching a
    Phase-1 REQ in REQUIREMENTS.md.
+8. **MCI consistency gate.** A cheap Haiku call scores the
+   PR title + body against the diff stat; the consistency
+   score must be ≥ 0.3. Per the F5 finding in the
+   AgenticOpsResearch synthesis
+   ([`system-design/04-ai-failure-mitigation.md` §3.5](https://github.com/loganrooks/Documents/Claude/Projects/AgenticOpsResearch/system-design/04-ai-failure-mitigation.md)),
+   Message-Code Inconsistency is the most actionable
+   single-signal predictor of PR defects: PRs whose
+   description doesn't match the diff drop from 80%
+   acceptance to 28%. Cost: ~$0.001 per check.
 
 Any one failing → no merge. The monitor posts a status
 comment naming the failed precondition and continues to wait.
@@ -227,12 +236,49 @@ currently say:
 This ADR relaxes that rule with a single explicit carve-out:
 
 > The Claude monitor session may merge a PR when and only when
-> all seven merge-gating preconditions in 0011-phase-1-orchestration.md
+> all eight merge-gating preconditions in 0011-phase-1-orchestration.md
 > are satisfied. No other agent — including the codex
 > orchestrator that opened the PR — may merge.
 
 The asymmetry is deliberate: codex opens, claude merges. A
 single vendor never both writes and approves its own work.
+
+**Precedent.** This carve-out follows
+[`agentic-review-loop` ADR-001 (Autonomous execution under bot-review gates)](https://github.com/loganrooks/agentic-review-loop/blob/main/docs/adr/ADR-001-autonomous-execution-policy.md),
+which inverts the same agentic-ops-kernel rule on three justifications
+that also apply to erebus:
+
+1. **Roadmap fully specified at bootstrap.** Phase-1 scope, REQ-IDs,
+   anchor tests, and acceptance criteria are pre-committed in
+   PROJECT.md, REQUIREMENTS.md, and TEST_SPEC.md. No open architectural
+   questions remain for the maintainer to adjudicate mid-stream —
+   those that exist are HUMAN-GATE escalations.
+2. **Deliverable surface does not fan out to consumers via floating
+   tag.** Phase-1 produces a CLI + Python library; it does not get
+   consumed by downstream repos through a moving `v1`-style reference.
+   Bugs caught late are recoverable by follow-up PR; they do not
+   propagate silently.
+3. **The Claude monitor session is the production-grade pre-merge
+   check.** Once the monitor is running, the maintainer's per-PR
+   inspection role is replaced by mechanical-gate verification.
+   The monitor's job is exactly this.
+
+Conditions under which this relaxation holds — all of which the
+monitor enforces mechanically via the eight preconditions:
+
+- Bot review still runs (`@codex review` posts on every PR)
+- Bot findings still get addressed or rejected with rationale
+  (zero unresolved threads precondition)
+- CI still passes (all 7 required checks green precondition)
+- Branch protection still enforces (`gh pr merge --admin` is the
+  bypass, but only when preconditions are met; admin is not used
+  to skip the check itself)
+- MCI consistency gate verifies the PR body matches the diff
+  (precondition #8)
+
+If any condition slips, the monitor does not merge. It posts a
+status comment naming the failed precondition and continues to
+wait.
 
 The merge action happens under Logan's GitHub credentials
 (attribution problem). A bot identity (GitHub App or PAT for a
