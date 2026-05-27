@@ -73,6 +73,25 @@ human to revert the agent's work and restart with a narrower goal.
    apply` on the 30-second reference clips. Commit a `NOTES.md`
    entry pointing at the lab output you reviewed.
 
+9. **Merge authority is bounded.** No agent merges its own PR. The
+   Claude monitor session (separate from the orchestrator session
+   that opened the PR) may merge during Phase-1 autonomous
+   execution **only when** all seven hard preconditions in
+   [`docs/decisions/0011-phase-1-orchestration.md`](docs/decisions/0011-phase-1-orchestration.md)
+   §"Merge gating" are satisfied. Outside Phase-1 autonomous
+   execution, only the human merges. The codex orchestrator
+   never merges; the GitHub `@codex review` bot never merges;
+   `claude -p` never merges.
+
+10. **Dormancy contract during autonomous execution.** When
+    `.planning/auto-execution/STATE.md` shows `task_status:
+    AWAITING_EXTERNAL` or `AWAITING_HUMAN`, the same agent turn
+    must end with a foreground `wait-for-X.sh` invocation per
+    [`.planning/EXECUTION-MODEL.md`](.planning/EXECUTION-MODEL.md)
+    §"Dormancy contract". This is the F-007 systemic fix from
+    agentic-ops; without it, codex's continuation hook burns
+    tokens polling. Token cost while waiting must be zero.
+
 ## Working conventions
 
 ### Code style
